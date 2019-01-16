@@ -26,6 +26,8 @@ export default {
 				icon: 'el-icon-info',
 				list: [{
 					title: '写文章', router: 'articleWrite' ,
+        		},{
+					title: '文章列表', router: 'articleList' ,
         		}]
       		}]
 		}

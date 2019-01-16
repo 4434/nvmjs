@@ -36,5 +36,8 @@ export default {
 <style lang="scss">
 	#editor{
 		background: #fff;
+    .w-e-text-container{
+        height: 600px !important;
+    }    
 	}	
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div id="top-header">
         <div class="left">
-            <i class="index">创作</i>
+            <i class="index" @click="goToIndex">创作</i>
             <span v-for="(item, index) in list " :key="index" :class="indexPage == index ? 'index': ''">{{item.title}} </span>
         </div>
         <div class="center">
@@ -9,7 +9,7 @@
             <i class="iconfont icon-sousuo"></i>
         </div>
         <div class="right">
-            <span>写文章</span>
+            <span @click="writeArticle">写文章</span>
             <span>sign up</span>
             <span>sign in</span>
             <img class="avater" src="http://nvmjs.com/img/photoWall/photo1534494616877.png" alt="">
@@ -26,15 +26,17 @@ export default {
           list: [{
               id: 1,
               title: '文章'
-          },{
-              id: 2,
-              title: '照片'
           }],
           
       }
   },
   methods: {
-
+    goToIndex () {
+        this.$router.push({path: '/'});
+    },
+    writeArticle () {
+        this.$router.push({path: 'articleWrite'});
+    }
   }
 };
 </script>

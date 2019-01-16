@@ -5,9 +5,13 @@
             <span>php</span>
         </div>
         <div class="content">
-            <div class="list">
+            <div class="list" @click="goToDetail">
                 <h2>vue-cli 3.0 修改端口</h2>
-                <div class="desc">1. vue-cli 3.0 修改端口 项目根目录下 创建 vue.config.js 文件创建 vue.config.js 文件创建 vue.config.js 文件</div>
+                <div class="desc">
+                    <p>
+                        1. vue-cli 3.0 修改端口 项目根目录下 创建 vue.config.js 文件创建 vue.config.js 文件创建 vue.config.js 文件
+                    </p>
+                </div>
                 <div class="footer">
                     <span>2018-10-11</span>
                     <span>
@@ -26,6 +30,20 @@
         </div>
     </div>
 </template>
+<script>
+  export default {
+    data() {
+      return {
+
+      }
+    },
+    methods: {
+        goToDetail () {
+            this.$router.push({name: 'articleDetail', query: {id: 1}});
+        }
+    }
+  }
+</script>
 <style lang="scss">
     #index{
         .class{
@@ -69,24 +87,25 @@
                 }
                 .desc{
                     width: 100%;
-                    height: 52px;
+                    height: 72px;
                     margin-top: 10px;
-                    font-size: 11px;
-                    color: #777;
-                    text-overflow: -o-ellipsis-lastline;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    display: -webkit-box;
-                    -webkit-line-clamp: 3;
-                    line-clamp: 3;
-                    -webkit-box-orient: vertical;                     
+                    p{
+                        font-size: 11px;
+                        color: #777;
+                        text-overflow: -o-ellipsis-lastline;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 3;
+                        line-clamp: 3;
+                        -webkit-box-orient: vertical;                         
+                    }                    
                 }
                 .footer{
                     color: #777;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    margin-top: 22px;
                     span{
                         display: flex;
                         align-items: center;
