@@ -1,7 +1,7 @@
 <template>
 	<div id="articleDetail">
 		<div class="content">
-			<h2>标题标题标题标题标题标题标题标题标题标题标题标题</h2>
+			<h2>{{detail.title}}</h2>
 			<div class="author-box">
 				<div class="portraits">
 					<img src="http://nvmjs.com/img/photoWall/photo1534494616877.png">
@@ -9,20 +9,47 @@
 				<div class="author">
 					<h6>李广</h6>
 					<p class="desc">
-						<span>2019.01.15 11:03*</span>
+						<span>{{detail.create_time}}*</span>
 						<span> 字数 339</span>
 						<span> 阅读 1</span>
-						<span>评论 0</span>
-						<span>喜欢 0</span>
+						<span> 评论 0</span>
+						<span> 喜欢 0</span>
 					</p>
 				</div>				
 			</div>
-			<div class="article-conter">
-				12123123123
-			</div>	
+			<div class="article-conter" v-html="detail.text"></div>	
 		</div>
 	</div>
 </template>
+
+<script>
+  export default {
+    data() {
+      return {
+        detail: {},
+      }
+    },
+    mounted () {
+
+    	this.getDetail(this.$route.query.id);
+    },
+    methods: {
+    	getDetail (id) {
+    		var _this = this;
+    		this.ajax({
+    			url: 'public/index.php/api/index/articleId',
+    			data: {
+    				id: id
+    			},
+    			success (res) {
+    				_this.detail = res.data;
+    			}
+    		})
+    	}
+    }
+  }
+</script>
+
 <style lang="scss">
 	#articleDetail{
 		height: 100%;
@@ -66,6 +93,19 @@
 						}
 					}
 				}
+			}
+		}
+		.article-conter{
+			font-size: 14px;
+			line-height: 30px;
+			color: #2f2f2f;
+			pre{
+				background: #282c34;
+				color: #abb2bf;
+				line-height: 20px;
+				border-radius: 4px;
+				box-sizing: border-box;
+				padding: 5px 10px;
 			}
 		}
 	}

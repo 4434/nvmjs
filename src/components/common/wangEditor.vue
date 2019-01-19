@@ -1,7 +1,5 @@
 <template>
-	<div id="editor" ref="editor">
-    <p>{{content}}</p> 
-  </div>
+	<div id="editor" ref="editor"></div>
 </template>
 
 <script>
@@ -10,14 +8,18 @@ export default {
   name: 'editor',
   data () {
     return {
-
+      editor: null,
     }
   },
   props: ['content'],
   mounted () {
   	this.seteditor();
   },
-
+  watch: {
+    content (data, oldData){
+      !oldData  && this.editor.txt.html(data);
+    }    
+  },
   methods: {
   	seteditor () {
   		this.editor = new E(this.$refs.editor);
@@ -29,6 +31,7 @@ export default {
   			fontNames: ['宋体', '微软雅黑']
   		}
   		this.editor.create();
+               
   	}
   }
 }
@@ -38,6 +41,6 @@ export default {
 		background: #fff;
     .w-e-text-container{
         height: 600px !important;
-    }    
+    }        
 	}	
 </style>

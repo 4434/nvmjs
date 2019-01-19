@@ -1,7 +1,8 @@
 export default{
 	install (Vue,options) {
 		Vue.prototype.ajax = function(request){
-			let _URL  = request.url;
+			let  www  = 'http://127.0.0.1/';
+			let _URL  = request.url && www + request.url;
 			let _TYPE = request.type || 'get';
 			let _DATA = request.data || '';
 			var _ITEM = {}; 
@@ -15,7 +16,7 @@ export default{
 				_ITEM  = {
 					method: _TYPE,
 					url: _URL,
-					data: _DATA
+					data: require('qs').stringify(_DATA)
 				};				
 			}			
 		    this.$http(_ITEM)

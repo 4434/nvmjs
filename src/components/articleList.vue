@@ -11,7 +11,7 @@
 		      width="300">
 		    </el-table-column>
 		    <el-table-column
-		      prop="create"
+		      prop="create_time"
 		      label="发布时间"
 		      width="180">
 		    </el-table-column>
@@ -23,11 +23,11 @@
 		      <template slot-scope="scope">
 		        <el-button
 		          size="mini"
-		          @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+		          @click="handleEdit(scope.row)">编辑</el-button>
 		        <el-button
 		          size="mini"
 		          type="danger"
-		          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+		          @click="handleDelete(scope.row)">删除</el-button>
 		      </template>
 		    </el-table-column>		    
 		  </el-table>
@@ -38,19 +38,7 @@
   export default {
     data() {
       return {
-        tableData: [{
-        	title: '文章标题文章标题文章标题',
-        	create: '2019-1-15 10:11:22',
-        	zan: 200,
-        },{
-        	title: '文章标题文章标题文章标题',
-        	create: '2019-1-15 10:11:22',
-        	zan: 200,
-        },{
-        	title: '文章标题文章标题文章标题',
-        	create: '2019-1-15 10:11:22',
-        	zan: 200,
-        }]
+        tableData: []
       }
     },
     mounted () {
@@ -58,12 +46,33 @@
     },
     methods: {
     	getList () {
+    		var _this = this;
     		this.ajax({
-    			url: 'http://127.0.0.1/public/index.php/api/index/index',
-    			success () {
-    				
+    			url: 'public/index.php/api/index/index',
+    			type: 'post',
+    			success (res) {
+    				_this.tableData = res.data;
     			}
     		})
+    	},
+    	handleEdit (data) {
+    		this.$router.push({name: 'articleWrite', query: {id: data.id}});
+    	},
+    	handleDelete (data) {
+    		let _this = this;
+    		this.ajax({
+    			url: 'public/index.php/api/index/articleDelete',
+    			type: 'post',
+    			data: {
+    				id: data.id
+    			},
+    			success (res) {
+    				if(res.code == 200){
+    					_this.getList();    					
+    					_this.open(res.message, 'success');
+    				}
+    			}
+    		});
     	}
     }
   }
