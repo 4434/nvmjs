@@ -1,8 +1,8 @@
 <template>
     <div id="top-header">
         <div class="left">
-            <i class="index" @click="goToIndex">创作</i>
-            <span v-for="(item, index) in list " :key="index" :class="indexPage == index ? 'index': ''">{{item.title}} </span>
+            <i class="index">创作</i>
+            <span v-for="(item, index) in list " :key="index" @click="goToPage(item, index)" :class="indexPage == index ? 'index': ''">{{item.title}} </span>
         </div>
         <div class="center">
             <input type="text" placeholder="请输入查询内容">
@@ -10,8 +10,8 @@
         </div>
         <div class="right">
             <span @click="writeArticle">写文章</span>
-            <span>sign up</span>
-            <span>sign in</span>
+            <span @click="goToLogin">sign up</span>
+            <span @click="goToRegister">sign in</span>
             <img class="avater" src="http://nvmjs.com/img/photoWall/photo1534494616877.png" alt="">
         </div>
     </div>
@@ -25,17 +25,25 @@ export default {
           indexPage: 0,
           list: [{
               id: 1,
-              title: '文章'
+              title: '文章',
+              uri: 'article'
           }],
           
       }
   },
   methods: {
-    goToIndex () {
-        this.$router.push({path: '/'});
+    goToLogin () {
+        this.$router.push({name: 'login'});
+    },
+    goToRegister () {
+        this.$router.push({name: 'register'});
+    },
+    goToPage (item, index) {
+        this.indexPage = index;
+        this.$router.push({name: item.uri});
     },
     writeArticle () {
-        this.$router.push({path: 'articleWrite'});
+        this.$router.push({name: 'articleWrite'});
     }
   }
 };

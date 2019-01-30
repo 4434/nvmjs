@@ -1,7 +1,7 @@
 export default{
 	install (Vue,options) {
 		Vue.prototype.ajax = function(request){
-			let  www  = 'http://127.0.0.1/';
+			let  www  = 'http://127.0.0.1/admin/';
 			let _URL  = request.url && www + request.url;
 			let _TYPE = request.type || 'get';
 			let _DATA = request.data || '';

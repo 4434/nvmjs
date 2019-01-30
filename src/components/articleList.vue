@@ -59,6 +59,17 @@
     		this.$router.push({name: 'articleWrite', query: {id: data.id}});
     	},
     	handleDelete (data) {
+    		this.$confirm('确定要删除这篇文章吗？', '提示信息',{
+    			type: 'warning'
+    		})
+    		.then(()=>{
+    			this.articleDelete(data);
+    		})
+    		.catch(()=>{
+
+    		});
+    	},
+    	articleDelete (data) {
     		let _this = this;
     		this.ajax({
     			url: 'public/index.php/api/index/articleDelete',
@@ -72,7 +83,7 @@
     					_this.open(res.message, 'success');
     				}
     			}
-    		});
+    		});    		
     	}
     }
   }

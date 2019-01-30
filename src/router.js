@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import HelloWorld from '@/components/HelloWorld';
+import login from '@/components/common/login';
+import register from '@/components/common/register';
 import article from '@/components/article';
 import admin from '@/components/admin';
 import articleWrite from '@/components/articleWrite';
@@ -35,7 +37,15 @@ export default new Router({
         path: '/articleDetail',
         name: 'articleDetail',                
         component: articleDetail
-      }]
+      },{
+        path: '/login',
+        name: 'login',
+        component: login,
+    },{
+        path: '/register',
+        name: 'register',
+        component: register,
+    }]
     }
   ]
 });

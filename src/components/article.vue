@@ -8,7 +8,8 @@
             <div class="list" @click="goToDetail(item);" v-for="(item, index) in articleList" :key="item.id">
                 <h2>{{item.title}}</h2>
                 <div class="author">
-                    作者： 李广
+                    <span>作者： 李广</span>
+                    <span>字数： {{item.length}}</span>
                 </div>
                 <div class="desc">
                     <p>{{item.describe}}</p>
@@ -81,10 +82,10 @@
                 margin: 10px;
                 font-size: 12px;
                 cursor: pointer;
-                background: #e2ffe7;
+                background: #fff;
                 h2{
                     font-size: 14px;
-                    color: #444;
+                    color: #80B3FF;
                     overflow: hidden;
                     text-overflow: ellipsis;
                     white-space: nowrap;               
@@ -92,7 +93,10 @@
                 .author{
                     margin-top: 5px;
                     font-size: 12px;
-                    color: #777;
+                    color: #FF8080;
+                    span{
+                        margin-right: 10px;
+                    }
                 }
                 .desc{
                     width: 100%;
@@ -100,7 +104,7 @@
                     margin-top: 10px;
                     p{
                         font-size: 12px;
-                        color: #2f2f2f;
+                        color: #8DD35F;
                         text-overflow: -o-ellipsis-lastline;
                         overflow: hidden;
                         text-overflow: ellipsis;

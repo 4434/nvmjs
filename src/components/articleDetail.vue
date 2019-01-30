@@ -10,7 +10,7 @@
 					<h6>李广</h6>
 					<p class="desc">
 						<span>{{detail.create_time}}*</span>
-						<span> 字数 339</span>
+						<span> 字数 {{detail.length}}</span>
 						<span> 阅读 1</span>
 						<span> 评论 0</span>
 						<span> 喜欢 0</span>

@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '@/assets/css/init.scss';
+  @import '@/assets/css/yk-init.scss';
   #app{
     width: 100%;
     height: 100%;
