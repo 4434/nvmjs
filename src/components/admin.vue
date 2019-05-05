@@ -28,7 +28,7 @@ export default {
             height: 100%;
             .left{
                 height: 100%;
-                background: #444;
+                background: #ddd;
             }
             .right{
                 height: 100%;

@@ -4,9 +4,6 @@ import router from "./router";
 import store from "./store";
 import './plugins/element.js';
 
-import axios from 'axios'
-Vue.prototype.$http = axios;
-
 import tool from '@/assets/js/yk-tool.js'
 Vue.use(tool);
 

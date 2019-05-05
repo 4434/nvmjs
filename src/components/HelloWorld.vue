@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import topHeader from "@/components/common/topHeader";
+import TopHeader from "@/components/common/TopHeader";
 export default {
-  components: { topHeader },
+  components: { TopHeader },
   name: "HelloWorld",
   props: {
     msg: String
@@ -26,7 +26,7 @@ export default {
   }
   .center{
     width: 100%;
-    height: calc(100% - 60px);
+    height: calc(100% - 72px);
     overflow-y: auto;
   }
 </style>

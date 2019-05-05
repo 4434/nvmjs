@@ -35,6 +35,7 @@
 	</div>
 </template>
 <script>
+  import article from '@/server/article'  
   export default {
     data() {
       return {
@@ -45,16 +46,11 @@
     	this.getList();
     },
     methods: {
-    	getList () {
-    		var _this = this;
-    		this.ajax({
-    			url: 'public/index.php/api/index/index',
-    			type: 'post',
-    			success (res) {
-    				_this.tableData = res.data;
-    			}
-    		})
-    	},
+        getList () {
+            article.articleList().then(res => {
+                this.tableData = res.data.data;
+            })
+        },
     	handleEdit (data) {
     		this.$router.push({name: 'articleWrite', query: {id: data.id}});
     	},
@@ -71,19 +67,10 @@
     	},
     	articleDelete (data) {
     		let _this = this;
-    		this.ajax({
-    			url: 'public/index.php/api/index/articleDelete',
-    			type: 'post',
-    			data: {
-    				id: data.id
-    			},
-    			success (res) {
-    				if(res.code == 200){
-    					_this.getList();    					
-    					_this.open(res.message, 'success');
-    				}
-    			}
-    		});    		
+            article.articleDelete({ id: data.id}).then(res => {
+                this.getList();
+                open(res.message, 'success');
+            });  		
     	}
     }
   }

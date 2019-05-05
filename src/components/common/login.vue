@@ -18,6 +18,7 @@
 	</div>
 </template>
 <script>
+import userServe from '@/server/user';	
 export default {
 	name: 'login',
 	data () {
@@ -42,7 +43,10 @@ export default {
     		if(!data.password){
     			this.open('请输入密码', 'error');
     			return;
-    		}  		
+    		}
+    		userServe.login(data).then(res => {
+    			console.log(res)
+    		});		
     	},
     }	
 }	

@@ -4,7 +4,7 @@
 			<h2>{{detail.title}}</h2>
 			<div class="author-box">
 				<div class="portraits">
-					<img src="http://nvmjs.com/img/photoWall/photo1534494616877.png">
+					<img src="http://pito.nvmjs.com/1.jpg">
 				</div>
 				<div class="author">
 					<h6>李广</h6>
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+  import article from '@/server/article';		
   export default {
     data() {
       return {
@@ -30,22 +31,14 @@
       }
     },
     mounted () {
-
     	this.getDetail(this.$route.query.id);
     },
     methods: {
     	getDetail (id) {
-    		var _this = this;
-    		this.ajax({
-    			url: 'public/index.php/api/index/articleId',
-    			data: {
-    				id: id
-    			},
-    			success (res) {
-    				_this.detail = res.data;
-    			}
-    		})
-    	}
+    		article.articleDetail({id: id}).then(res => {
+    			this.detail = res.data.data;
+    		});  
+    	},
     }
   }
 </script>
@@ -53,6 +46,7 @@
 <style lang="scss">
 	#articleDetail{
 		height: 100%;
+		margin-top: 10px;
 		.content{
 			width: 800px;
 			min-height: 100%;
@@ -60,6 +54,25 @@
 			padding: 40px 20px;
 			margin: 0 auto;
 			background: #fff;
+			position: relative;
+			.goBack{
+				width: 60px;
+				height: 28px;
+				border: 1px solid #eee;
+				line-height: 28px;
+				text-align: center;
+				font-size: 12px;
+				background: #fff;
+				position: absolute;
+				top: 80px;
+				right: 8px;
+				cursor: pointer;
+				transition: all 1s;
+				color: #333;
+				&:hover{
+					border: 1px solid red;
+				};
+			}
 			.author-box{
 				display: flex;
 				margin-top: 20px;

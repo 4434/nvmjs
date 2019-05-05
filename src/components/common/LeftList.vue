@@ -2,7 +2,7 @@
 	<div class="left-list">
 		<el-row  class="tac">
 		  <el-col :span="24">
-		    <el-menu class="el-menu-vertical-demo" router :default-active="activeRoute"  unique-opened   background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :collapse="false">
+		    <el-menu class="el-menu-vertical-demo" router :default-active="activeRoute"  unique-opened   background-color="#ccc" text-color="#333" active-text-color="red" :collapse="false">
 		      <el-submenu class="left_title_one" v-for="(item,index) in leftList" :index="JSON.stringify(index)" :key="index" >		      	
 		        <template slot="title">
               <i :class="item.icon"></i>	

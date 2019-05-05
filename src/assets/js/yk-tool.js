@@ -1,39 +1,5 @@
 export default{
-	install (Vue,options) {
-		Vue.prototype.ajax = function(request){
-			let  www  = 'http://127.0.0.1/admin/';
-			let _URL  = request.url && www + request.url;
-			let _TYPE = request.type || 'get';
-			let _DATA = request.data || '';
-			var _ITEM = {}; 
-			if(_TYPE == 'get'){
-				_ITEM  = {
-					method: _TYPE,
-					url: _URL,
-					params: _DATA
-				};
-			}else{
-				_ITEM  = {
-					method: _TYPE,
-					url: _URL,
-					data: require('qs').stringify(_DATA)
-				};				
-			}			
-		    this.$http(_ITEM)
-		    .then(function(res){
-		        request.success && request.success(res.data);
-		    })
-		    .catch(function(err){
-		      var res = {
-		        data: {
-		          Code: 4000,
-		          Msg: '网络连接错误'
-		        }
-		      };
-		      request.success && request.success(res.data);
-		    });	    		
-		};
-		
+	install (Vue,options) {		
 		Vue.prototype.timeInit = function(time){
 			if(!time) return;
 			let timeData = {};

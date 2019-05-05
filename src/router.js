@@ -3,11 +3,11 @@ import Router from 'vue-router';
 import HelloWorld from '@/components/HelloWorld';
 import login from '@/components/common/login';
 import register from '@/components/common/register';
-import article from '@/components/article';
+import Index from '@/views/home/Index';
 import admin from '@/components/admin';
 import articleWrite from '@/components/articleWrite';
 import articleList from '@/components/articleList';
-import articleDetail from '@/components/articleDetail';
+import ArticleDetail from '@/views/home/ArticleDetail';
 Vue.use(Router);
 
 export default new Router({
@@ -19,8 +19,8 @@ export default new Router({
       component: HelloWorld,
       children: [{
         path: '/',
-        name: 'article',
-        component: article
+        name: 'Index',
+        component: Index
       },{
         path: '/admin',
         component: admin,
@@ -34,9 +34,9 @@ export default new Router({
           component: articleList
         }]
       },{
-        path: '/articleDetail',
-        name: 'articleDetail',                
-        component: articleDetail
+        path: '/ArticleDetail',
+        name: 'ArticleDetail',                
+        component: ArticleDetail
       },{
         path: '/login',
         name: 'login',

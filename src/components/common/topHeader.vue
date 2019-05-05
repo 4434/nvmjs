@@ -1,37 +1,38 @@
 <template>
     <div id="top-header">
-        <div class="left">
-            <i class="index">创作</i>
-            <span v-for="(item, index) in list " :key="index" @click="goToPage(item, index)" :class="indexPage == index ? 'index': ''">{{item.title}} </span>
-        </div>
-        <div class="center">
-            <input type="text" placeholder="请输入查询内容">
-            <i class="iconfont icon-sousuo"></i>
-        </div>
-        <div class="right">
-            <span @click="writeArticle">写文章</span>
-            <span @click="goToLogin">sign up</span>
-            <span @click="goToRegister">sign in</span>
-            <img class="avater" src="http://nvmjs.com/img/photoWall/photo1534494616877.png" alt="">
+        <div class="header-inner">
+            <div class="left">
+                <div class="logo" @click="goToIndex" >创作</div>
+                <input @keydown="keyInput" v-model="form.search" type="" name="" placeholder="Keyword">
+                <span @click="searchBtn">搜索</span>
+                <span @click="resetBtn">重置</span>
+            </div>
+            <div class="right">
+                <span @click="writeArticle">写文章</span>
+                <span @click="goToLogin">sign in</span>            
+                <span @click="goToRegister">sign up</span>
+                <!-- <img class="avater" src="http://nvmjs.com/img/photoWall/photo1534494616877.png" alt=""> -->
+            </div>            
         </div>
     </div>
 </template>
 <script>
+import newVue from '@/assets/js/yk-vue.js'
 export default {
   components: { },
   name: "top-header",
   data () {
       return {
-          indexPage: 0,
-          list: [{
-              id: 1,
-              title: '文章',
-              uri: 'article'
-          }],
-          
+          active: 0,
+          form: {
+            search: '',
+          }
       }
   },
   methods: {
+    goToIndex () {
+        this.$router.push({name: 'Index'});
+    },
     goToLogin () {
         this.$router.push({name: 'login'});
     },
@@ -39,8 +40,20 @@ export default {
         this.$router.push({name: 'register'});
     },
     goToPage (item, index) {
-        this.indexPage = index;
+        this.active = index;
         this.$router.push({name: item.uri});
+    },
+    searchBtn () {
+        newVue.$emit('search', this.form);
+    },
+    resetBtn () {
+        this.form.search = '';
+        this.searchBtn();
+    },
+    keyInput (event) {
+        if(event.keyCode == 13){
+            this.searchBtn();
+        }
     },
     writeArticle () {
         this.$router.push({name: 'articleWrite'});
@@ -51,70 +64,45 @@ export default {
 <style lang="scss">
     #top-header{
         width: 100%;
-        height: 60px;
+        height: 72px;
         box-sizing: border-box;
-        color: #fff;
-        padding: 0 20px;
-        background: rgba($color: #000000, $alpha: 0.8);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        .left{
+        background: #fff;
+        border-bottom: 1px solid #ddd;
+        .header-inner{
+            width: 1200px;
+            height: 72px;
+            margin: 0 auto;
             display: flex;
-            align-items: center;
-            font-size: 12px;
-            i{
-                font-style: normal;
-                font-size: 16px;
-                margin-right: 50px;
-                cursor: pointer;
-            }
-            span{
-                margin-right: 20px;
-                font-size: 14px;
-                cursor: pointer;
-                &.index{
-                    color: #ea6f5a;
+            font-size: 14px;
+            justify-content: space-between;
+            align-items: center;            
+            .left{
+                color: #333;
+                display: flex;
+                align-items: center;
+                .logo{
+                    font-size: 24px;
+                    font-weight: 700;
+                    color: #0097A7;
+                    cursor: pointer;
+                }
+                input{
+                    width: 200px;
+                    border: 0;
+                    border-bottom: 1px solid #ddd;
+                    margin-left: 40px;
+                    outline: none;
+                }
+                span{
+                    margin-left: 20px;
+                    cursor: pointer;
                 }
             }
-        }
-        .center{
-            height: 30px;
-            display: flex;
-            background: #fff;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            i{
-                font-size: 16px;
-                color: #ccc;
-                margin-right: 10px;
-                cursor: pointer;
-            }
-            input{
-                width: 200px;
-                height: 30px;
-                box-sizing: border-box;
-                border: 0;
-                border-radius: 15px;
-                outline: none;
-                padding: 0 20px;
-            }
-        }
-        .right{
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            .avater{
-                width: 30px;
-                height: 30px;
-                border-radius: 50%;
-                margin-left: 20px;
-                cursor: pointer;
-            }
-            span{
-                margin-left: 20px;
-                cursor: pointer;
+            .right{
+                span{
+                    margin-left: 20px;
+                    cursor: pointer;
+                }
             }
         }
     }

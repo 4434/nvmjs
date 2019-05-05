@@ -22,6 +22,7 @@
 	</div>
 </template>
 <script>
+import userServe from '@/server/user';		
 export default {
 	name: 'login',
 	data () {
@@ -56,22 +57,9 @@ export default {
     			this.open('俩次输入的密码不相等', 'error');
     			return;
     		}
-    		let _this = this;
-    		this.ajax({
-    			url: 'public/index.php/api/User/userInsert',
-    			type: 'post',
-  				data: {
-  					username: data.username,
-  					password: data.password
-  				},
-    			success (res) {
-    				if(res.code == 200){
-    					_this.open(res.message, 'success');
-    				}else{
-    					_this.open(res.message, 'error');
-    				}
-    			}
-    		});    		
+    		userServe.register(data).then(res => {
+    			console.log(res.data.data);
+    		});   		
     	},
     }	
 }	
