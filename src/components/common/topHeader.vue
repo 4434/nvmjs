@@ -43,7 +43,7 @@ export default {
       }
   },
   mounted () {
-    this.user = localStorage.user && JSON.parse(localStorage.user);
+    this.user = localStorage.user && JSON.parse(localStorage.user) || {};
   },
   methods: {
     goToIndex () {
