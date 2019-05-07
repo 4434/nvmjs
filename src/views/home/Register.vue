@@ -2,8 +2,7 @@
 	<div id="login">
 		<div class="login-box">
 			<div class="slogn">
-				<img class="logo" src="@/assets/img/icon.png">
-				<span>作----注册</span>
+				<span>创作----注册</span>
 			</div>
 			<div class="input-box">
 				<i class="iconfont icon-yonghu-"></i>

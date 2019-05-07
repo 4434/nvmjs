@@ -1,5 +1,8 @@
 export default{
-	install (Vue,options) {		
+	install (Vue,options) {
+		/**
+		 *  时间格式转化
+		 *  */		
 		Vue.prototype.timeInit = function(time){
 			if(!time) return;
 			let timeData = {};
@@ -14,7 +17,9 @@ export default{
 			timeData.second  = t.getSeconds() < 10 ? "0" + t.getSeconds() : t.getSeconds();
 			return 	timeData;		
 		};
-
+		/**
+		 *  封装提示
+		 */
 		Vue.prototype.open = function(message,type){
 	        this.$message({
 	          message: message,

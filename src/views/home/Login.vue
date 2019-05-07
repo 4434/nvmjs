@@ -2,8 +2,7 @@
 	<div id="login">
 		<div class="login-box">
 			<div class="slogn">
-				<img class="logo" src="@/assets/img/icon.png">
-				<span>作----登录</span>
+				<span>创作----登录</span>
 			</div>
 			<div class="input-box">
 				<i class="iconfont icon-yonghu-"></i>
@@ -45,7 +44,10 @@ export default {
     			return;
     		}
     		userServe.login(data).then(res => {
-    			console.log(res)
+				if(res.data.code == 200){
+					localStorage.user = JSON.stringify(res.data.data);
+					window.location.href= "/";
+				}
     		});		
     	},
     }	
