@@ -1,9 +1,5 @@
 <template>
     <div id="index">
-        <div class="key-box">
-            <keys></keys>
-        </div>
-
         <div class="box-inner">
             <div class="title">列表</div>
             <div class="inner">
@@ -16,13 +12,12 @@
     </div>
 </template>
 <script>
-  import keys from '@/components/common/keys'  
   import articleList from '@/components/common/articleList'
   import pageList from '@/components/common/pageList'
   import newVue from '@/assets/js/yk-vue.js'
   import article from '@/server/article.js'
   export default {
-    components: { keys, articleList, pageList },
+    components: { articleList, pageList },
     data() {
       return {
         articleData: [],

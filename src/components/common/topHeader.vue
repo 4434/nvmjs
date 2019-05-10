@@ -19,7 +19,7 @@
                         </li>
                         <li @click="exit">
                             <i class="el-icon-edit"></i>
-                            <span>退出</span>  
+                            <span>退出</span>
                         </li>
                     </ul>
                 </div>

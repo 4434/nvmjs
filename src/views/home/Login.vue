@@ -2,7 +2,8 @@
 	<div id="login">
 		<div class="login-box">
 			<div class="slogn">
-				<span>创作----登录</span>
+				<i @click="goToIndex">创作</i>
+				<span>登录</span>
 			</div>
 			<div class="input-box">
 				<i class="iconfont icon-yonghu-"></i>
@@ -34,6 +35,9 @@ export default {
 		},
 	},
     methods: {
+		goToIndex () {
+			this.$router.push({ name: 'Index' });
+		},
     	loginBtn (data) {
     		if(!data.username){
     			this.open('请输入用户名', 'error');
@@ -70,12 +74,15 @@ export default {
 			padding: 50px;
 			.slogn{
 				display: flex;
-				justify-content: center;
+				justify-content: space-between !important;
 				align-items: center;
 				margin-bottom: 50px;
-				.logo{
-					width: 40px;
-					height: 40px;
+				i{
+					font-size: 22px;
+					font-weight: 700;
+					font-style: initial;
+					color: #0097A7;
+					cursor: pointer;
 				}
 				span{
 					margin-left: 10px;
