@@ -4,11 +4,12 @@ import HelloWorld from '@/components/HelloWorld';
 import Index from '@/views/home/Index';
 import Login from '@/views/home/Login';
 import Register from '@/views/home/Register';
-import admin from '@/components/admin';
-
-import articleWrite from '@/components/articleWrite';
-import articleList from '@/components/articleList';
 import ArticleDetail from '@/views/home/ArticleDetail';
+
+import admin from '@/views/admin/admin';
+import articleWrite from '@/views/admin/articleWrite';
+import articleList from '@/views/admin/articleList';
+
 Vue.use(Router);
 
 export default new Router({
@@ -23,21 +24,21 @@ export default new Router({
         name: 'Index',
         component: Index
       },{
-        path: '/admin',
-        component: admin,
-        children: [{
-          path: '/articleWrite',
-          name: 'articleWrite',
-          component: articleWrite
-        },{
-          path: '/articleList',
-          name: 'articleList',
-          component: articleList
-        }]
-      },{
         path: '/ArticleDetail',
-        name: 'ArticleDetail',                
+        name: 'ArticleDetail',
         component: ArticleDetail
+      }]
+    },{
+      path: '/admin',
+      component: admin,
+      children: [{
+        path: '/articleWrite',
+        name: 'articleWrite',
+        component: articleWrite
+      },{
+        path: '/articleList',
+        name: 'articleList',
+        component: articleList
       }]
     },{
       path: '/Login',

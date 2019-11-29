@@ -61,7 +61,10 @@ export default {
     			return;
     		}
     		userServe.register(data).then(res => {
-    			console.log(res.data.data);
+				if(res.code == 200){
+					localStorage.token = res.token;
+					window.location.href= "/";
+				}
     		});   		
     	},
     }	

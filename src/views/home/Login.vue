@@ -48,8 +48,8 @@ export default {
     			return;
     		}
     		userServe.login(data).then(res => {
-				if(res.data.code == 200){
-					localStorage.user = JSON.stringify(res.data.data);
+				if(res.code == 200){
+					localStorage.token = res.data.token;
 					window.location.href= "/";
 				}
     		});		

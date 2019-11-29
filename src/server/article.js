@@ -1,18 +1,21 @@
-import axios from '../assets/js/axios';
+import axios from './axios';
 export default{
-	articleList (params) {
+	articleList (params = {}) {
 		return axios.post('/api/article', params);
 	},
-	articleDetail (params) {
+	articleUs (params = {}) {
+		return axios.post('/api/articleUs', params);
+	},
+	articleDetail (params = {}) {
 		return axios.get('/api/articleDetail', { params: params });
 	},
-	articleDelete (params) {
+	articleDelete (params = {}) {
 		return axios.get('/api/articleDelete', { params: params });
 	},
-	articleWrite (params) {
+	articleWrite (params = {}) {
 		return axios.post('/api/articleWrite', params);
 	},
-	articleUpdate (params) {
+	articleUpdate (params = {}) {
 		return axios.post('/api/articleUpdate', params);
 	}
 }

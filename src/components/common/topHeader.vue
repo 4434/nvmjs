@@ -4,21 +4,25 @@
             <div class="left">
                 <div class="logo" @click="goToIndex" >创作</div>
                 <input @keydown="keyInput" v-model="form.search" type="" name="" placeholder="Keyword">
-                <span @click="searchBtn">search</span>
-                <span @click="resetBtn">reset</span>
+                <span @click="searchBtn">搜索</span>
+                <span @click="resetBtn">重置</span>
             </div>
             <div class="right">
-                <div class="sign-in" v-if="!user.token" @click="goToLogin">sign in</div>            
-                <div class="sign-up" v-if="!user.token" @click="goToRegister">sign up</div>
-                <div class="user-data" v-if="user.token">
+                <div class="sign-in" v-if="!token" @click="goToLogin">sign in</div>            
+                <div class="sign-up" v-if="!token" @click="goToRegister">sign up</div>
+                <div class="user-data" v-if="token">
                     <img class="user-photo" src="http://pito.nvmjs.com/1.jpg" alt="">
                     <ul class="user-list">
                         <li @click="writeArticle">
                             <i class="el-icon-edit"></i>
                             <span>写文章</span>  
                         </li>
+                        <li @click="articleList">
+                            <i class="el-icon-s-operation"></i>
+                            <span>文章列表</span>  
+                        </li>
                         <li @click="exit">
-                            <i class="el-icon-edit"></i>
+                            <i class="el-icon-setting"></i>
                             <span>退出</span>
                         </li>
                     </ul>
@@ -36,14 +40,14 @@ export default {
   data () {
       return {
           active: 0,
-          user: {},
+          token: {},
           form: {
             search: '',
           }
       }
   },
   mounted () {
-    this.user = localStorage.user && JSON.parse(localStorage.user) || {};
+    this.token = localStorage.token;
   },
   methods: {
     goToIndex () {
@@ -74,8 +78,11 @@ export default {
     writeArticle () {
         this.$router.push({name: 'articleWrite'});
     },
+    articleList () {
+        this.$router.push({name: 'articleList'});
+    },
     exit () {
-        localStorage.user = null;
+        localStorage.clear();
         window.location.href= "/";
     }
   }

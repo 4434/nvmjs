@@ -1,4 +1,4 @@
-import axios from '../assets/js/axios';
+import axios from './axios';
 export default{
 	login (params) {
 		return axios.post('/api/login', params);

@@ -45,8 +45,8 @@
         },
         getList (data) {
             article.articleList(data).then(res => {
-                this.articleData = res.data.data;
-                this.page = res.data.page;
+                this.articleData = res.data;
+                this.page = res.page;
             })
         },
         pageData (data) {

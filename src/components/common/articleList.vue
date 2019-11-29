@@ -6,11 +6,13 @@
 	            <p>{{item.describe}}</p>
 	        </div>                    
 	        <div class="footer">
-	            <span>李广</span>
-	            <span>{{item.length}}字</span>
-	            <span><i class="iconfont icon-ai-eye"></i> <i>20</i></span>
-	            <span><i class="iconfont icon-xin"></i><i>20</i></span>
-	            <span>{{item.create_time}}</span>
+                <div class="left">
+                    <span>{{item.username}}</span>
+                    <span>{{item.length}}字</span>
+                </div>
+                <div class="right">
+	                <span>{{item.create_time | dateTime}}</span>
+                </div>
 	        </div>
 	    </div>
     </div>   	
@@ -30,7 +32,7 @@
                 name: "ArticleDetail",
                 query: {id: item.id}
             });
-            window.open(routeUrl .href, '_blank');            
+            window.open(routeUrl.href, '_blank');            
         },
     }    
   }
@@ -52,7 +54,7 @@
     };
     h2{
         font-size: 16px;
-        color: #969696;
+        color: #333;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;               
@@ -62,7 +64,7 @@
         margin-top: 6px;
         p{
             font-size: 12px;
-            color: #999;
+            color: #666;
             text-overflow: -o-ellipsis-lastline;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -75,17 +77,18 @@
     .footer{
         color: #b4b4b4;
         display: flex;
-        align-items: center;
+        justify-content: space-between;
         margin-top: 6px;
-        span{
-            display: flex;
-            align-items: center;
-            i{
-                font-size: 12px;
-                font-style: normal;
-                margin-left: 3px;
+        .left{
+            span{
+                i{
+                    font-size: 12px;
+                    font-style: normal;
+                    margin-left: 3px;
+                }
             }
         }
+
     }
 }	
 </style>

@@ -3,6 +3,7 @@
 		<template>
 		  <el-table
 		    :data="tableData"
+			border
 		    stripe
 		    style="width: 100%">
 		    <el-table-column
@@ -14,6 +15,11 @@
 		      prop="create_time"
 		      label="发布时间"
 		      width="180">
+			  <template slot-scope="scope">
+				  <div>
+					  {{scope.row.create_time | dateTime}}
+				  </div>
+			  </template>
 		    </el-table-column>
 		    <el-table-column
 		      prop="zan"
@@ -31,24 +37,43 @@
 		      </template>
 		    </el-table-column>		    
 		  </el-table>
-		</template>		
+		</template>
+		<div class="page-box">
+			<pageList :page="page" @page-data="pageData"></pageList>
+		</div>
 	</div>
 </template>
 <script>
   import article from '@/server/article'  
+  import pageList from '@/components/common/pageList'
   export default {
+	components: { pageList },
     data() {
       return {
-        tableData: []
+		tableData: [],
+        page: {
+            pageIndex: 1,
+            pageSize: 10,
+            pageAll: 100,
+		},
+		uid: '',
       }
     },
     mounted () {
-    	this.getList();
+		this.uid = localStorage.token;
+		let params = {
+			uid: this.uid 
+		}
+		params = Object.assign(params,this.page);
+    	this.getList(params);
     },
     methods: {
-        getList () {
-            article.articleList().then(res => {
-                this.tableData = res.data.data;
+        getList (data) {
+            article.articleUs(data).then(res => {
+				if(res.code == 200){
+					this.tableData = res.data;
+					this.page = res.page;
+				}
             })
         },
     	handleEdit (data) {
@@ -69,9 +94,16 @@
     		let _this = this;
             article.articleDelete({ id: data.id}).then(res => {
                 this.getList();
-                open(res.message, 'success');
             });  		
-    	}
+		},
+        pageData (data) {
+			this.page = data;
+			let params = {
+				uid: this.uid,
+			}
+			Object.assign(params, this.page)
+            this.getList(params);
+        },		
     }
   }
 </script>

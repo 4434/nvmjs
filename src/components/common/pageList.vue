@@ -39,7 +39,7 @@
           li{
             margin: 0 10px;
             &.active{
-              background: red;
+              background: teal;
               color: #fff;
             }
           }

@@ -29,7 +29,7 @@
       return {
         labelPosition: 'top',
         formLabelAlign: {
-          type: 1
+          type: 1,
         }
       };
     },
@@ -38,6 +38,7 @@
     },    
     methods: {
       init () {
+        this.formLabelAlign.token = localStorage.token;
         let id = this.$route.query.id;
         id && this.getDetail(id);
       },
@@ -46,7 +47,7 @@
       },
       getDetail (id) {
         article.articleDetail({id: id}).then( res => {
-          this.formLabelAlign = res.data.data;
+          this.formLabelAlign = res.data;
         });
       },
       articleBtn () {
@@ -57,14 +58,16 @@
       articleUpdate (id) {
         this.formLabelAlign.id = id;
         article.articleUpdate(this.formLabelAlign).then(res => {
-          this.open(res.message, 'success');
-          this.$router.push({name: 'articleList'});         
+          if(res.code == 200){
+            this.$router.push({name: 'Index'});
+          }         
         });       
       },
       articleWrite () {
         article.articleWrite(this.formLabelAlign).then(res => {
-          this.open(res.message, 'success');
-          this.$router.push({name: 'articleList'});           
+          if(res.code == 200){
+            this.$router.push({name: 'Index'});
+          }
         });
       }
     }

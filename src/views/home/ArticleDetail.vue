@@ -7,9 +7,9 @@
 					<img src="http://pito.nvmjs.com/1.jpg">
 				</div>
 				<div class="author">
-					<h6>李广</h6>
+					<h6>{{detail.username}}</h6>
 					<p class="desc">
-						<span>{{detail.create_time}}*</span>
+						<span>{{detail.create_time | dateTime}}</span>
 						<span> 字数 {{detail.length}}</span>
 						<span> 阅读 1</span>
 						<span> 评论 0</span>
@@ -36,7 +36,7 @@
     methods: {
     	getDetail (id) {
     		article.articleDetail({id: id}).then(res => {
-    			this.detail = res.data.data;
+    			this.detail = res.data;
     		});  
     	},
     }
