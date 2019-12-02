@@ -97,7 +97,7 @@
 					uid: this.uid 
 				}
 				params = Object.assign(params,this.page);				
-                this.getList();
+                this.getList(params);
             });  		
 		},
         pageData (data) {
