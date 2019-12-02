@@ -45,6 +45,9 @@ export default {
   .element-box{
     width: 100%;
     height: 100%;
+    .el-main{
+      padding: 0;
+    }
     .element-header{
       width: 100%;
       background: #3C3C3C;

@@ -3,7 +3,7 @@
         <div class="header-inner">
             <div class="left">
                 <div class="logo" @click="goToIndex" >创作</div>
-                <input @keydown="keyInput" v-model="form.search" type="" name="" placeholder="Keyword">
+                <input @input="keyInput" v-model="form.search" type="" name="" placeholder="Keyword">
                 <span @click="searchBtn">搜索</span>
                 <span @click="resetBtn">重置</span>
             </div>
@@ -11,7 +11,7 @@
                 <div class="sign-in" v-if="!token" @click="goToLogin">sign in</div>            
                 <div class="sign-up" v-if="!token" @click="goToRegister">sign up</div>
                 <div class="user-data" v-if="token">
-                    <img class="user-photo" src="http://pito.nvmjs.com/1.jpg" alt="">
+                    <img class="user-photo" src="@/assets/img/default-img.jpg" alt="">
                     <ul class="user-list">
                         <li @click="writeArticle">
                             <i class="el-icon-edit"></i>
@@ -33,7 +33,7 @@
     </div>
 </template>
 <script>
-import newVue from '@/assets/js/yk-vue.js'
+import bus from '@/assets/js/bus.js'
 export default {
   components: { },
   name: "top-header",
@@ -64,16 +64,14 @@ export default {
         this.$router.push({name: item.uri});
     },
     searchBtn () {
-        newVue.$emit('search', this.form);
+        bus.$emit('search', this.form);
     },
     resetBtn () {
         this.form.search = '';
         this.searchBtn();
     },
     keyInput (event) {
-        if(event.keyCode == 13){
-            this.searchBtn();
-        }
+        this.searchBtn();
     },
     writeArticle () {
         this.$router.push({name: 'articleWrite'});

@@ -14,7 +14,7 @@
 <script>
   import articleList from '@/components/common/articleList'
   import pageList from '@/components/common/pageList'
-  import newVue from '@/assets/js/yk-vue.js'
+  import bus from '@/assets/js/bus.js'
   import article from '@/server/article.js'
   export default {
     components: { articleList, pageList },
@@ -34,10 +34,12 @@
     mounted () {
         this.getList();
         let $this = this;
-        newVue.$on('search', function(data){
+        bus.$off('search');
+        bus.$on('search', function(data){
             $this.from = Object.assign(data);
             $this.getList($this.from);
         });
+
     },
     methods: {
         searchData (data) {

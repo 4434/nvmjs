@@ -107,3 +107,9 @@
     }
   }
 </script>
+<style lang="scss">
+	.articleList{
+		padding: 10px;
+		box-sizing: border-box;
+	}
+</style>

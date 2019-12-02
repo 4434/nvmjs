@@ -39,7 +39,18 @@ export default {
 			return this.$route.path.replace('/','')
 		},
 	},
+	mounted () {
+		this.init();
+	},	
     methods: {
+		init () {
+			let $this = this;
+			window.onkeydown = function(e){
+				if(e.keyCode === 13){
+					$this.registerBtn($this.form);
+				}
+			}
+		},		
 		goToIndex () {
 			this.$router.push({ name: 'Index' });
 		},
@@ -74,7 +85,7 @@ export default {
 	#login{
 		width: 100%;
 		height: 100%;
-		background: url('./../../assets/img/bgcover.png') no-repeat center;
+		background: url('./../../assets/img/bgcover.jpg') no-repeat center;
 		background-size: cover;
 		.login-box{
 			width: 430px;

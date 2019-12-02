@@ -1,4 +1,5 @@
 module.exports = {
+    outputDir: './nvmjs-dist/dist',
     devServer: {
         port: 9999,                                     // 配置端口
         proxy: {

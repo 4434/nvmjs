@@ -28,6 +28,26 @@ export default {
 					},{
 						title: '文章列表', router: 'articleList' ,
 					}]
+				},{
+				title: '开发测试',
+				icon: 'el-icon-info',
+				list: [{
+						title: '时间功能', router: 'Time', 
+					},{
+						title: '折叠表格', router: 'TreeTable',
+					},{
+						title: '日历开发', router: 'Calendar',
+					}]
+				},{
+				title: '游戏开始',
+				icon: 'el-icon-info',
+				list: [{
+						title: '坦克大战', router: 'Tank', 
+					},{
+						title: '字母游戏', router: 'keyGame' ,
+					},{
+						title: '贪吃蛇蛇', router: 'Snake' ,
+					}]
 				}]
 		}
 	},

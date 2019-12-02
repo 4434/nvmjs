@@ -11,7 +11,7 @@
 			</div>
 			<div class="input-box">
 				<i class="iconfont icon-mimasuo"></i>
-				<input v-model="form.password" type="" name="" placeholder="请输入密码">
+				<input v-model="form.password" type="password" name="" placeholder="请输入密码">
 			</div>
 			<div @click="loginBtn(form);" class="btn">登录</div>
 		</div>
@@ -33,8 +33,19 @@ export default {
 		activeRoute () {
 			return this.$route.path.replace('/','')
 		},
+	},	
+	mounted () {
+		this.init();
 	},
     methods: {
+		init () {
+			let $this = this;
+			window.onkeydown = function(e){
+				if(e.keyCode === 13){
+					$this.loginBtn($this.form);
+				}
+			}
+		},
 		goToIndex () {
 			this.$router.push({ name: 'Index' });
 		},
@@ -61,7 +72,7 @@ export default {
 	#login{
 		width: 100%;
 		height: 100%;
-		background: url('./../../assets/img/bgcover.png') no-repeat center;
+		background: url('./../../assets/img/bgcover.jpg') no-repeat center;
 		background-size: cover;
 		.login-box{
 			width: 430px;
