@@ -73,7 +73,7 @@ export default {
     		}
     		userServe.register(data).then(res => {
 				if(res.code == 200){
-					localStorage.token = res.token;
+					localStorage.token = res.data.token;
 					window.location.href= "/";
 				}
     		});   		
