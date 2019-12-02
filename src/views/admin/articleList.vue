@@ -93,6 +93,10 @@
     	articleDelete (data) {
     		let _this = this;
             article.articleDelete({ id: data.id}).then(res => {
+				let params = {
+					uid: this.uid 
+				}
+				params = Object.assign(params,this.page);				
                 this.getList();
             });  		
 		},
