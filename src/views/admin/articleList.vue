@@ -23,7 +23,13 @@
 		    </el-table-column>
 		    <el-table-column
 		      prop="zan"
-		      label="点赞数量">
+		      label="作者">
+			  <template slot-scope="scope">
+				  <div>
+					  <span v-if="scope.row.username">{{scope.row.username}}</span>
+					  <span v-if="!scope.row.username">自己</span>
+				  </div>
+			  </template>
 		    </el-table-column>
 		    <el-table-column label="操作">
 		      <template slot-scope="scope">
