@@ -57,6 +57,14 @@
       },
       articleUpdate (id) {
         this.formLabelAlign.id = id;
+        if(!this.formLabelAlign.title){
+          this.open('请输入标题', 'error');
+          return;
+        }
+        if(!this.formLabelAlign.text){
+          this.open('请输入内容', 'error');
+          return;
+        }        
         article.articleUpdate(this.formLabelAlign).then(res => {
           if(res.code == 200){
             this.$router.push({name: 'Index'});
@@ -64,6 +72,14 @@
         });       
       },
       articleWrite () {
+        if(!this.formLabelAlign.title){
+          this.open('请输入标题', 'error');
+          return;
+        }
+        if(!this.formLabelAlign.text){
+          this.open('请输入内容', 'error');
+          return;
+        }
         article.articleWrite(this.formLabelAlign).then(res => {
           if(res.code == 200){
             this.$router.push({name: 'Index'});
