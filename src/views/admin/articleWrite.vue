@@ -22,7 +22,6 @@
 <script>
   import wangEditor from '@/components/common/wangEditor';
   import article from '@/server/article'
-
   export default {
     components: { wangEditor },
     data() {

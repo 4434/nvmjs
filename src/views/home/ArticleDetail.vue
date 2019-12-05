@@ -21,7 +21,6 @@
 		</div>
 	</div>
 </template>
-
 <script>
   import article from '@/server/article';		
   export default {
