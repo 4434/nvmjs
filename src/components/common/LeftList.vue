@@ -47,6 +47,8 @@ export default {
 						title: '字母游戏', router: 'keyGame' ,
 					},{
 						title: '贪吃蛇蛇', router: 'Snake' ,
+					},{
+						title: '画板绘画', router: 'Draw' ,
 					}]
 				}]
 		}

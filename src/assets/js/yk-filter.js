@@ -16,16 +16,19 @@ export default {
    * 
    * @param {时间戳转 yyyy-MM-dd HH:mm:ss} val 
    */
-  dateTime (val) {
-    if(val){
-      let d = new Date(val);    //根据时间戳生成的时间对象
-      let date = (d.getFullYear()) + "-" + 
-                 (d.getMonth() + 1) + "-" +
-                 (d.getDate()) + " " + 
-                 (d.getHours()) + ":" + 
-                 (d.getMinutes()) + ":" + 
-                 (d.getSeconds());
-      return date;             
+  dateTime (time) {
+    if(time){
+			let timeData = {};
+			var t = new Date(time);
+			timeData.getTime = t.getTime();
+			timeData.year    = t.getFullYear();
+			timeData.month   = t.getMonth() + 1 < 10 ? '0' + (t.getMonth() + 1) : t.getMonth() + 1;
+			timeData.day     = t.getDate() < 10 ? '0' + t.getDate() : t.getDate();
+			timeData.week    = t.getDay() < 10 ? '0' + t.getDay() : t.getDay();
+			timeData.hour    = t.getHours() < 10 ? '0' + t.getHours() : t.getHours();
+			timeData.minute  = t.getMinutes() < 10 ? "0" + t.getMinutes() : t.getMinutes();
+			timeData.second  = t.getSeconds() < 10 ? "0" + t.getSeconds() : t.getSeconds();
+			return 	timeData.year + '-' + timeData.month + '-' + timeData.day + ' ' + timeData.hour + ':' + timeData.minute + ':' + timeData.second;	             
     }else{
       return '暂无时间';
     }

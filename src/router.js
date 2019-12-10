@@ -23,6 +23,7 @@ import Tank from "@/views/develop/Tank.vue";
 import Calendar from "@/views/develop/Calendar.vue";
 import Snake from "@/views/develop/Snake.vue";
 import keyGame from "@/views/develop/keyGame.vue";
+import Draw from "@/views/develop/Draw.vue";
 
 
 Vue.use(Router);
@@ -78,6 +79,10 @@ export default new Router({
         path: "/keyGame",
         name: "keyGame",
         component: keyGame,        
+      },{
+        path: "/Draw",
+        name: "Draw",
+        component: Draw,        
       }]
     },{
       path: '/Login',

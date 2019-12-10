@@ -84,10 +84,6 @@
                 border-top: 0;
                 padding: 10px;
                 background: #fff;
-                span{
-                    margin-right: 10px;
-                    cursor: pointer;
-                }
             }
         }
     }

@@ -40,17 +40,16 @@
 <style lang="scss">
 .article-list{
     box-sizing: border-box;
-    border-radius: 3px;
-    padding: 10px;
+    padding: 10px 0;
     background: #fff;
     margin: 10px;
     font-size: 12px;
     cursor: pointer;
     background: #fff;
-    border: 1px solid #eee;
+    border-bottom: 1px solid #eee;
     transition: all 1s;
     &:hover{
-        border: 1px solid rgb(0, 151, 167);
+        border-bottom: 1px solid rgb(0, 151, 167);
     };
     h2{
         font-size: 16px;
@@ -81,6 +80,7 @@
         margin-top: 6px;
         .left{
             span{
+                margin-right: 10px;
                 i{
                     font-size: 12px;
                     font-style: normal;
