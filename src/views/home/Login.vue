@@ -61,6 +61,7 @@ export default {
     		userServe.login(data).then(res => {
 				if(res.code == 200){
 					localStorage.token = res.data.token;
+					localStorage.avater = res.data.avater;
 					window.location.href= "/";
 				}
     		});		

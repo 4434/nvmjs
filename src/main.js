@@ -7,6 +7,9 @@ import './plugins/element.js';
 import tool from '@/assets/js/yk-tool.js'
 Vue.use(tool);
 
+import VueCropper from 'vue-cropper'
+Vue.use(VueCropper)
+
 import filters from '@/assets/js/yk-filter.js'
 Object.keys(filters).forEach(key => {  
   Vue.filter(key, filters[key])  

@@ -6,4 +6,7 @@ export default{
 	register (params) {
 		return axios.post('/api/register', params);
 	},
+	userInfo (params) {
+		return axios.post('/api/userInfo', params);
+	},
 }

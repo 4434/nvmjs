@@ -1,30 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HelloWorld from '@/components/HelloWorld';
-/**
- *  前端页面
- */
-import Index from '@/views/home/Index';
-import Login from '@/views/home/Login';
-import Register from '@/views/home/Register';
-import ArticleDetail from '@/views/home/ArticleDetail';
-/**
- *  后台操作页面
- */
-import admin from '@/views/admin/admin';
-import articleWrite from '@/views/admin/articleWrite';
-import articleList from '@/views/admin/articleList';
-/**
- *  小功能开发页面
- */
-import Time from "@/views/develop/Time.vue";
-import TreeTable from "@/views/develop/TreeTable.vue";
-import Tank from "@/views/develop/Tank.vue";
-import Calendar from "@/views/develop/Calendar.vue";
-import Snake from "@/views/develop/Snake.vue";
-import keyGame from "@/views/develop/keyGame.vue";
-import Draw from "@/views/develop/Draw.vue";
-
 
 Vue.use(Router);
 
@@ -34,64 +9,68 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: HelloWorld,
+      component: (resolve) => {require(['@/components/HelloWorld'], resolve)},
       children: [{
         path: '/',
         name: 'Index',
-        component: Index
+        component: (resolve) => {require(['@/views/home/Index'], resolve)}
       },{
         path: '/ArticleDetail',
         name: 'ArticleDetail',
-        component: ArticleDetail
+        component: (resolve) => {require(['@/views/home/ArticleDetail'], resolve)}
+      },{
+        path: '/Info',
+        name: 'Info',
+        component: (resolve) => {require(['@/views/home/Info'], resolve)}
       }]
     },{
       path: '/admin',
-      component: admin,
+      component: (resolve) => {require(['@/views/admin/admin'], resolve)},
       children: [{
         path: '/articleWrite',
         name: 'articleWrite',
-        component: articleWrite
+        component: (resolve) => {require(['@/views/admin/articleWrite'], resolve)}
       },{
         path: '/articleList',
         name: 'articleList',
-        component: articleList
+        component: (resolve) => {require(['@/views/admin/articleList'], resolve)}
       },{
         path: "/Time",
         name: "Time",
-        component: Time,
+        component: (resolve) => {require(['@/views/develop/Time.vue'], resolve)}
       },{
         path: "/TreeTable",
         name: "TreeTable",
-        component: TreeTable,
+        component: (resolve) => {require(['@/views/develop/TreeTable.vue'], resolve)}
       },{
         path: "/Calendar",
         name: "Calendar",
-        component: Calendar,        
+        component: (resolve) => {require(['@/views/develop/Calendar.vue'], resolve)}
       },{
         path: "/Tank",
         name: "Tank",
-        component: Tank,        
+        component: (resolve) => {require(['@/views/develop/Tank.vue'], resolve)}
       },{
         path: "/Snake",
         name: "Snake",
-        component: Snake,        
+        component: (resolve) => {require(['@/views/develop/Snake.vue'], resolve)}
       },{
         path: "/keyGame",
         name: "keyGame",
-        component: keyGame,        
+        component: (resolve) => {require(['@/views/develop/keyGame.vue'], resolve)}
       },{
         path: "/Draw",
         name: "Draw",
-        component: Draw,        
+        component: (resolve) => {require(['@/views/develop/Draw.vue'], resolve)}
       }]
     },{
       path: '/Login',
       name: 'Login',
-      component: Login,
+      component: (resolve) => {require(['@/views/home/Login'], resolve)}
     },{
       path: '/Register',
       name: 'Register',
-      component: Register,
+      component: (resolve) => {require(['@/views/home/Register'], resolve)}
     }
   ]
 });

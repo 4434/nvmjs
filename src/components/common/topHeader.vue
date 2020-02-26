@@ -3,15 +3,16 @@
         <div class="header-inner">
             <div class="left">
                 <div class="logo" @click="goToIndex" >创作</div>
-                <input @input="keyInput" v-model="form.search" type="" name="" placeholder="Keyword">
+                <input @input="keyInput" v-model="form.search" type="" name="" placeholder="关键字">
                 <span @click="searchBtn">搜索</span>
                 <span @click="resetBtn">重置</span>
             </div>
             <div class="right">
-                <div class="sign-in" v-if="!token" @click="goToLogin">sign in</div>            
-                <div class="sign-up" v-if="!token" @click="goToRegister">sign up</div>
+                <div class="sign-in" v-if="!token" @click="goToLogin">登陆</div>            
+                <div class="sign-up" v-if="!token" @click="goToRegister">注册</div>
                 <div class="user-data" v-if="token">
-                    <img class="user-photo" src="@/assets/img/default-img.jpg" alt="">
+                    <img v-if="!avater" class="user-photo" @click="info" src="@/assets/img/icon.png" alt="">
+                    <img v-if="avater" class="user-photo" @click="info" :src="avater" alt="">
                     <ul class="user-list">
                         <li @click="writeArticle">
                             <i class="el-icon-edit"></i>
@@ -19,8 +20,7 @@
                         </li>
                         <li @click="articleList">
                             <i class="el-icon-s-operation"></i>
-                            <span>文章列表</span>  
-                        </li>
+                            <span>文章列表</span>
                         <li @click="exit">
                             <i class="el-icon-setting"></i>
                             <span>退出</span>
@@ -40,7 +40,8 @@ export default {
   data () {
       return {
           active: 0,
-          token: {},
+          token: '',
+          avater: '',
           form: {
             search: '',
           }
@@ -48,6 +49,7 @@ export default {
   },
   mounted () {
     this.token = localStorage.token;
+    this.avater = localStorage.avater;
   },
   methods: {
     goToIndex () {
@@ -72,6 +74,9 @@ export default {
     },
     keyInput (event) {
         this.searchBtn();
+    },
+    info () {
+        this.$router.push({name: 'Info'});
     },
     writeArticle () {
         this.$router.push({name: 'articleWrite'});

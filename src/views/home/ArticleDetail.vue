@@ -4,7 +4,8 @@
 			<h2>{{detail.title}}</h2>
 			<div class="author-box">
 				<div class="portraits">
-					<img src="http://pito.nvmjs.com/1.jpg">
+					<img v-if="!detail.avater" src="@/assets/img/icon.png">
+					<img v-if="detail.avater" :src="detail.avater">
 				</div>
 				<div class="author">
 					<h6>{{detail.username}}</h6>

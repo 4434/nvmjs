@@ -4,7 +4,7 @@ export default{
 		 *  时间格式转化
 		 *  */		
 		Vue.prototype.timeInit = function(time){
-			if(!time) return;
+			if(!time) time = new Date();
 			let timeData = {};
 			var t = new Date(time);
 			timeData.getTime = t.getTime();
