@@ -55,6 +55,10 @@
 			margin: 0 auto;
 			background: #fff;
 			position: relative;
+			pre{
+				white-space: pre-wrap;
+    			word-wrap: break-word;
+			}
 			.goBack{
 				width: 60px;
 				height: 28px;
