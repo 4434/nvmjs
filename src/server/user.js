@@ -9,4 +9,7 @@ export default{
 	userInfo (params) {
 		return axios.post('/api/userInfo', params);
 	},
+	getUse (params) {
+		return axios.get('/api/getUse', { params });
+	},
 }

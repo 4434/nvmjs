@@ -1,9 +1,12 @@
 <template>
 	<div id="info">
 		<el-form label-width="200px" :label-position="'left'" :model="form">
+		<el-form-item label="昵称">
+			<span>{{form.username}}</span>
+		</el-form-item>
 		<el-form-item label="头像">
 			<div class="avater-box">
-				<img class="avater" :src="form.avater"/>
+				<img class="avater" :src="form.avater ? form.avater : require('@/assets/img/icon.png') "/>
 				<div class="update-avater">
 					<input type="file" ref="upfile" class="file-update" @change="upfile" accept="image/png,image/jpeg,image/jpg" />
 					<i class="el-icon-edit"></i>
@@ -12,12 +15,13 @@
 		</el-form-item>
 		<el-form-item label="性别">
 			<el-radio-group v-model="form.sex">
-			<el-radio label="1">男</el-radio>
-			<el-radio label="2">女</el-radio>
+			<el-radio :label="0">保密</el-radio>
+			<el-radio :label="1">男</el-radio>
+			<el-radio :label="2">女</el-radio>
 			</el-radio-group>
 		</el-form-item>
 		<el-form-item label="个人简介">
-			<el-input type="textarea" v-model="form.desc"></el-input>
+			<el-input type="textarea" v-model="form.d"></el-input>
 		</el-form-item>
 		<el-form-item label="操作">
 			<el-button type="primary" @click="submit">提交</el-button>
@@ -63,9 +67,7 @@ export default {
 	name: 'login',
 	data () {
 		return {
-			form: {
-
-			},
+			form: {},
 			qiniuToken: '',
 			dialogVisible: false,
 			option: {
@@ -85,18 +87,22 @@ export default {
 				original: false, // 上传图片按照原始比例渲染
 				centerBox: false, // 截图框是否被限制在图片里面
 				infoTrue: true // true 为展示真实输出图片宽高 false 展示看到的截图框宽高
-			},			
+			},
+			token: localStorage.token || '',			
 		}
-	},
-	computed: {
-		activeRoute () {
-			return this.$route.path.replace('/','')
-		},
 	},	
 	mounted () {
 		this.getToken();
+		this.getUse(this.token);
 	},
     methods: {
+		getUse (token) {
+			userServe.getUse({uid: token}).then(res=>{
+				if(res.code == 200){
+					this.form = res.data;
+				}
+			});
+		},
 		realTime () {},
 		finish () {
 			this.$refs.cropper.getCropBlob((data)=>{
@@ -147,6 +153,7 @@ export default {
 			this.form.uid = localStorage.token;
 			userServe.userInfo(this.form).then(res=>{
 				if(res.code == 200){
+					localStorage.avater = res.data.avater;
 					this.$message({type: 'success', message: '修改个人信息成功'});
 				}
 			});

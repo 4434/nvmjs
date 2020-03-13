@@ -4,13 +4,15 @@
     <div class="center">
       <router-view/>
     </div>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import TopHeader from "@/components/common/TopHeader";
+import Footer from "@/components/common/Footer";
 export default {
-  components: { TopHeader },
+  components: { TopHeader, Footer },
   name: "HelloWorld",
   props: {
     msg: String
