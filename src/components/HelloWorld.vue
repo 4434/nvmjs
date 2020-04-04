@@ -28,7 +28,7 @@ export default {
   }
   .center{
     width: 100%;
-    height: calc(100% - 72px);
+    height: calc(100% - 72px - 50px);
     overflow-y: auto;
   }
 </style>
