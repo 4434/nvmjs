@@ -86,5 +86,8 @@
                 background: #fff;
             }
         }
+        .page-box{
+            margin: 20px auto;
+        }
     }
 </style>

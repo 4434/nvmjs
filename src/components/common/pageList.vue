@@ -32,7 +32,6 @@
 </script>
 <style lang="scss">
   .block{
-     margin-top: 20px;
      .el-pagination{
         text-align: center;
         .el-pager{
