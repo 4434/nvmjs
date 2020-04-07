@@ -3,18 +3,10 @@ class canvasAbility {
 	colorArr   = ['#68ff03','#03a9ff','#026dff','#ff1705',"#ff9600","#363535","#b98080","#0ac1f6","#050b43","#5059ac"];
 	vx = 4;
 	vy = 4;
+	npcNUm = 6;
 	player = {x: 100, y: 600, r: 4, direction: 0, speed: 10, color: '#fff', bullet: []};		// 玩家	
-	npcArr = [
-		{x: 0, y: 0, r: 5, direction: 0, speed: 5, color: '#abcdef', bullet: []},				// npc
-		{x: 0, y: 0, r: 5, direction: 1, speed: 5, color: '#abcdef', bullet: []},
-		{x: 0, y: 0, r: 5, direction: 2, speed: 5, color: '#abcdef', bullet: []},
-		{x: 0, y: 0, r: 5, direction: 3, speed: 5, color: '#abcdef', bullet: []},
-		{x: 0, y: 0, r: 5, direction: 0, speed: 5, color: '#abcdef', bullet: []},
-		{x: 0, y: 0, r: 5, direction: 1, speed: 5, color: '#abcdef', bullet: []},
-		{x: 0, y: 0, r: 5, direction: 2, speed: 5, color: '#abcdef', bullet: []},
-		{x: 0, y: 0, r: 5, direction: 3, speed: 5, color: '#abcdef', bullet: []},
-		{x: 0, y: 0, r: 5, direction: 1, speed: 5, color: '#abcdef', bullet: []},
-	];
+	npcArr = this.npcCreate(this.npcNUm);
+
 	deathBall = [];		// 爆炸后的残骸
 
 	constructor (ctx, w, h) {
@@ -42,8 +34,11 @@ class canvasAbility {
 		let that = this;
 		(function aaa(){
 			requestAnimFrame(aaa);
-
 			that.clear(0,0,that.w,that.h);
+			if(that.npcArr.length == 0){
+				that.npcNUm ++
+				that.npcArr = that.npcCreate(that.npcNUm);
+			}
 			that.npc(that.npcArr);		// npc
 			if(that.player){
 				that.tank(that.player.x, that.player.y, that.player.r, that.player.direction, that.player.color);   // 玩家坦克
@@ -60,20 +55,28 @@ class canvasAbility {
 		})();			
 			
 
-		setInterval(()=>{
+		setInterval(()=>{    // 每隔2s 随机转向
 			for(let i=0; i<this.npcArr.length; i++){
 				this.npcArr[i].direction = Math.round(Math.random()*3)		
 			}
-			// this.npcArr.push({x: 0, y: 0, r: 3, direction: 1, speed: 5, color: '#abcdef', bullet: []});
 		},2000);
 
-		setInterval(()=>{
+		setInterval(()=>{	// 每隔500ms 生成一颗子弹
 			for(let i=0; i<this.npcArr.length; i++){
 				let newBullet = {x: this.npcArr[i].x + 3*2*this.npcArr[i].r + this.npcArr[i].r/2, y: this.npcArr[i].y + 3*2*this.npcArr[i].r + this.npcArr[i].r/2, r:4, direction: this.npcArr[i].direction, speed: 10, color: '#abcdef'};
 				this.npcArr[i].bullet.push(newBullet);
 			}		
 		}, 500);
 
+	}
+	
+	npcCreate (n) {
+		let arr = [];
+		for(let i = 0; i < n; i++) {
+			arr.push({x: 0, y: 0, r: 5, direction: Math.round(Math.random()*10%4), speed: 5, color: '#abcdef', bullet: []});
+		}
+		console.log(arr);
+		return arr;
 	}
 
 	playerBullet (player) { // 玩家子弹							
