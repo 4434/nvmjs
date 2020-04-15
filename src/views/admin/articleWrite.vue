@@ -63,6 +63,10 @@
         if(!this.formLabelAlign.text){
           this.open('请输入内容', 'error');
           return;
+        }    
+        if(!this.formLabelAlign.type){
+          this.open('请选择类型', 'error');
+          return;
         }        
         article.articleUpdate(this.formLabelAlign).then(res => {
           if(res.code == 200){

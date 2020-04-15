@@ -155,6 +155,7 @@ export default {
 				if(res.code == 200){
 					localStorage.avater = res.data.avater;
 					this.$message({type: 'success', message: '修改个人信息成功'});
+					window.location.href = "http://nvmjs.com/";
 				}
 			});
 		},
