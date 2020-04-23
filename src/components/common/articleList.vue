@@ -51,6 +51,9 @@
     &:hover{
         border-bottom: 1px solid rgb(0, 151, 167);
     };
+    &:last-child{
+        border-bottom: 0;
+    }
     h2{
         font-size: 16px;
         color: #333;

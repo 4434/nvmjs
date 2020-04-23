@@ -4,6 +4,9 @@ import router from "./router";
 import store from "./store";
 import './plugins/element.js';
 
+import loading from '@/components/common/loading/loading.js' // 引入loading
+Vue.use(loading);
+
 import tool from '@/assets/js/yk-tool.js'
 Vue.use(tool);
 

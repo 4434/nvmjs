@@ -117,9 +117,12 @@
     }
   }
 </script>
-<style lang="scss">
+<style lang="scss" scope>
 	.articleList{
 		padding: 10px;
 		box-sizing: border-box;
+	}
+	.page-box{
+		margin-top: 20px;
 	}
 </style>

@@ -3,9 +3,9 @@
         <div class="header-inner">
             <div class="left">
                 <div class="logo" @click="goToIndex" >创作</div>
-                <input @input="keyInput" v-model="form.search" type="" name="" placeholder="关键字">
-                <span @click="searchBtn">搜索</span>
-                <span @click="resetBtn">重置</span>
+                <input v-model="form.search" type="" name="" placeholder="关键字">
+                <span @click="searchBtn" class="search">搜索</span>
+                <span @click="resetBtn" class="search">重置</span>
             </div>
             <div class="right">
                 <div class="sign-in" v-if="!token" @click="goToLogin">登陆</div>            
@@ -50,8 +50,17 @@ export default {
   mounted () {
     this.token = localStorage.token;
     this.avater = localStorage.avater;
+    this.init();
   },
   methods: {
+    init () {
+        let $this = this;
+        window.onkeydown = function(e){
+            if(e.keyCode === 13){
+                $this.searchBtn();
+            }
+        }
+    },      
     goToIndex () {
         this.$router.push({name: 'Index'});
     },
@@ -70,9 +79,6 @@ export default {
     },
     resetBtn () {
         this.form.search = '';
-        this.searchBtn();
-    },
-    keyInput (event) {
         this.searchBtn();
     },
     info () {
@@ -126,6 +132,12 @@ export default {
                 span{
                     margin-left: 20px;
                     cursor: pointer;
+                    &.search{
+                        color: #0097A7;
+                    }
+                    &.reset{
+                        color: red;
+                    }
                 }
             }
             .right{

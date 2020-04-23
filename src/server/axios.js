@@ -8,7 +8,15 @@ axios.create({
 
 axios.defaults.timeout = 20000       // 请求超时的时间限制
 
+axios.interceptors.request.use(request =>{      // 接口发起请求
+    Vue.$loading.show();                        // 开启全局 loading
+    return request;
+}, error =>{
+    console.log(error);
+});
+
 axios.interceptors.response.use(response => {   // 接口请求成功
+    Vue.$loading.hide();                        // 关闭全局 loading
     switch (response.data.code) {
         case 200:
             break;

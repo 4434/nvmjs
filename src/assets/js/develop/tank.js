@@ -4,7 +4,7 @@ class canvasAbility {
 	vx = 4;
 	vy = 4;
 	npcNUm = 6;
-	player = {x: 100, y: 600, r: 4, direction: 0, speed: 10, color: '#fff', bullet: []};		// 玩家	
+	player = {x: 100, y: 600, r: 4, direction: 0, speed: 10, color: '#0097A7', bullet: []};		// 玩家	
 	npcArr = this.npcCreate(this.npcNUm);
 
 	deathBall = [];		// 爆炸后的残骸
@@ -291,7 +291,7 @@ class canvasAbility {
 				return;
 			}
 			if(event.keyCode == 32){
-				let newBullet = {x: player.x + 3*2*player.r + player.r/2, y: player.y + 3*2*player.r + player.r/2, r:4, direction: player.direction, speed: 20, color: '#fff'};
+				let newBullet = {x: player.x + 3*2*player.r + player.r/2, y: player.y + 3*2*player.r + player.r/2, r:4, direction: player.direction, speed: 20, color: '#0097A7'};
 				player.bullet.push(newBullet);
 				return;			
 			}
