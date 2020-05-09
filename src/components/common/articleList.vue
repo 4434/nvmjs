@@ -1,5 +1,8 @@
 <template>
     <div class="content">
+        <div class="null" v-if="articleList.length == 0">
+            <img src="@/assets/img/null.jpg" alt="">
+        </div>
 	    <div class="article-list" @click="goToDetail(item);" v-for="item in articleList" :key="item.id">
 	        <h2>{{item.title}}</h2>
 	        <div class="desc">
@@ -37,7 +40,10 @@
     }    
   }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
+.null{
+    text-align: center;
+}
 .article-list{
     box-sizing: border-box;
     padding: 10px 0;

@@ -3,7 +3,7 @@
         <div class="header-inner">
             <div class="left">
                 <div class="logo" @click="goToIndex" >创作</div>
-                <input v-model="form.search" type="" name="" placeholder="关键字">
+                <input v-model="form.search" type="" @keyup="keyBtn" name="" placeholder="关键字">
                 <span @click="searchBtn" class="search">搜索</span>
                 <span @click="resetBtn" class="search">重置</span>
             </div>
@@ -73,6 +73,9 @@ export default {
     goToPage (item, index) {
         this.active = index;
         this.$router.push({name: item.uri});
+    },
+    keyBtn () {
+        bus.$emit('search', this.form);
     },
     searchBtn () {
         bus.$emit('search', this.form);
