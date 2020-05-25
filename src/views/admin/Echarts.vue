@@ -78,8 +78,9 @@ export default {
         series: [
           {
             data: data,
-            type: "line"
-          }
+            type: "line",
+            itemStyle : { normal: {label : {show: true}}},      // 显示数值
+          },
         ]
       };
       myEcharts.setOption(option);
@@ -192,8 +193,8 @@ export default {
   flex-wrap: wrap;
   li{
     border: 1px solid #ebeef5;
-    margin-left: -1px;
-    margin-top: -1px;
+    margin: 5px;
+    border-radius: 5px;
     .title{
       padding: 8px 20px;
       border-bottom: 1px solid #ebeef5;
