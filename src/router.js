@@ -62,6 +62,10 @@ export default new Router({
         path: "/Draw",
         name: "Draw",
         component: (resolve) => {require(['@/views/develop/Draw.vue'], resolve)}
+      },{
+        path: "/Echarts",
+        name: "Echarts",
+        component: (resolve) => {require(['@/views/admin/Echarts.vue'], resolve)}
       }]
     },{
       path: '/Login',

@@ -74,7 +74,7 @@ export default {
         this.active = index;
         this.$router.push({name: item.uri});
     },
-    keyBtn () {
+    keyBtn (event) {
         bus.$emit('search', this.form);
     },
     searchBtn () {

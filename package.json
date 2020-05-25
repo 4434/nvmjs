@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "echarts": "^4.7.0",
     "element-ui": "^2.4.5",
     "qiniu-js": "^2.5.5",
     "vue": "^2.5.21",

@@ -28,7 +28,7 @@ export default {
 			timeData.hour    = t.getHours() < 10 ? '0' + t.getHours() : t.getHours();
 			timeData.minute  = t.getMinutes() < 10 ? "0" + t.getMinutes() : t.getMinutes();
 			timeData.second  = t.getSeconds() < 10 ? "0" + t.getSeconds() : t.getSeconds();
-			return 	timeData.year + '-' + timeData.month + '-' + timeData.day + ' ' + timeData.hour + ':' + timeData.minute + ':' + timeData.second;	             
+			return 	timeData.year + '-' + timeData.month + '-' + timeData.day;	             
     }else{
       return '暂无时间';
     }

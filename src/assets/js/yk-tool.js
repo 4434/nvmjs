@@ -15,7 +15,7 @@ export default{
 			timeData.hour    = t.getHours() < 10 ? '0' + t.getHours() : t.getHours();
 			timeData.minute  = t.getMinutes() < 10 ? "0" + t.getMinutes() : t.getMinutes();
 			timeData.second  = t.getSeconds() < 10 ? "0" + t.getSeconds() : t.getSeconds();
-			return 	timeData;		
+			return 	timeData;	
 		};
 		/**
 		 *  封装提示

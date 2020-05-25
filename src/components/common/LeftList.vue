@@ -50,6 +50,12 @@ export default {
 					},{
 						title: '画板绘画', router: 'Draw' ,
 					}]
+				},{
+				title: '图表测试',
+				icon: 'el-icon-info',
+				list: [{
+						title: '图表', router: 'Echarts', 
+					}]
 				}]
 		}
 	},
