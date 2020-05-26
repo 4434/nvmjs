@@ -24,7 +24,7 @@ export default {
 				title: '文章管理',
 				icon: 'el-icon-info',
 				list: [{
-						title: '写文章', router: 'articleWrite', 
+						title: '创作文章', router: 'articleWrite', 
 					},{
 						title: '文章列表', router: 'articleList' ,
 					}]
@@ -54,7 +54,7 @@ export default {
 				title: '图表测试',
 				icon: 'el-icon-info',
 				list: [{
-						title: '图表', router: 'Echarts', 
+						title: '折线图表', router: 'Echarts', 
 					}]
 				}]
 		}

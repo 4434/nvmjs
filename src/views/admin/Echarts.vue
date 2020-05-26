@@ -75,6 +75,12 @@ export default {
         yAxis: {
           type: "value"
         },
+        grid: {
+            left: '50px',
+            right: '50px',
+            top: '10%',
+            bottom: '10%'
+        },        
         series: [
           {
             data: data,

@@ -21,6 +21,15 @@
                         <li @click="articleList">
                             <i class="el-icon-s-operation"></i>
                             <span>文章列表</span>
+                        </li>
+                        <li @click="$router.push({name: 'Tank'})">
+                            <i class="el-icon-burger"></i>
+                            <span>游戏列表</span>
+                        </li>
+                        <li @click="$router.push({name: 'Echarts'})">
+                            <i class="el-icon-tableware"></i>
+                            <span>统计列表</span>
+                        </li>      
                         <li @click="exit">
                             <i class="el-icon-setting"></i>
                             <span>退出</span>
