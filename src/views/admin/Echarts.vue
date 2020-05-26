@@ -100,7 +100,7 @@ export default {
       echartServe.listData(this.queryForm).then(res=>{
         if(res.code == 200){
           this.tableData = res.data.map(res=>{
-            res.timeString = this.timeInit().year + '-' + this.timeInit().month + '-' + this.timeInit().day;
+            res.timeString = this.timeInit(res.time).year + '-' + this.timeInit(res.time).month + '-' + this.timeInit(res.time).day;
             return res;
           });
           let echartData = this.echartCollation(this.tableData);
