@@ -27,13 +27,19 @@
       :visible.sync="flag.add"
       width="30%">
       <el-form :model="addForm" status-icon ref="addForm" label-width="80px" class="demo-ruleForm">
-        <el-row :gutter="10">
-          <el-col :span="24">
-            <el-form-item label="输入数字">
-              <el-input type="number" v-model="addForm.num" size="small"  autocomplete="off" placeholder="请输入数字"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
+        <el-form-item label="选择日期">
+          <el-date-picker
+            v-model="addForm.time"
+            type="date"
+            value-format="timestamp"
+            style="width: 100%"
+            size="small"
+            placeholder="选择日期">
+          </el-date-picker>          
+        </el-form-item>
+        <el-form-item label="输入数字">
+          <el-input type="number" v-model="addForm.num" size="small"  autocomplete="off" placeholder="请输入数字"></el-input>
+        </el-form-item>        
       </el-form>       
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="addDataBtn" size="small">确 定</el-button>
@@ -94,6 +100,7 @@ export default {
     addBtn () {
       this.flag.add = true;
       this.addForm.id = null;
+      this.$set(this.addForm, 'time', this.timeInit().getTime);
       this.$set(this.addForm, 'num', null);
     },
     getData () {
@@ -135,26 +142,28 @@ export default {
       }
     },
     addDataBtn () {
+      if(!this.addForm.time){
+        this.open('请选择日期', 'error');
+        return
+      }      
       if(this.addForm.num == null || this.addForm.num == undefined || this.addForm.num == ''){
         this.open('请输入数值', 'error')
         return
       }
+      this.addForm.token = localStorage.token || '';
       this.flag.add = false;
       if(this.addForm.id){
         echartServe.dataUpdate(this.addForm).then(res=>{
           if(res.code == 200){
-            this.addForm.num = null;
-            this.addForm.id  = null;
+            this.addForm = {}
             this.open('修改成功', 'success');
             this.getData();
           }
         });
       }else{
-        this.addForm.time = this.timeInit().getTime
         echartServe.addData(this.addForm).then(res=>{
           if(res.code == 200){
-            this.addForm.num = null;
-            this.addForm.id  = null;
+            this.addForm = {}
             this.getData();
             this.open('添加成功', 'success');
           }
@@ -164,6 +173,7 @@ export default {
     dataUpdateBtn (item) {
       this.flag.add = true;
       this.$set(this.addForm, 'num', item.num);
+      this.$set(this.addForm, 'time', item.time);
       this.addForm.id  = item.id;
     },
     deleteBtn (item) {
