@@ -59,17 +59,8 @@ export default {
   mounted () {
     this.token = localStorage.token;
     this.avater = localStorage.avater;
-    this.init();
   },
-  methods: {
-    init () {
-        let $this = this;
-        window.onkeydown = function(e){
-            if(e.keyCode === 13){
-                $this.searchBtn();
-            }
-        }
-    },      
+  methods: {     
     goToIndex () {
         this.$router.push({name: 'Index'});
     },
