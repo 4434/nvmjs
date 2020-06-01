@@ -74,23 +74,51 @@ export default {
     initEchartLine(display = [], data = []) {
       let myEcharts = echarts.init(this.$refs.echartLine);
       let option = {
+        backgroundColor: '#fff',   // 设置背景色
         xAxis: {
           type: "category",
+          // boundaryGap: false,        // 设置刻度从0开始
+          axisLabel: {
+            rotate: 30,         // 设置X轴 旋转角度
+            color: "#999",       // 设置X轴 文字颜色
+          },
+          axisLine: {
+            lineStyle: {
+              color: "#999",      // 设置X轴 的颜色
+            }
+          },          
           data: display
         },
         yAxis: {
-          type: "value"
+          type: "value",
+          axisLabel: {
+            color: "#999",       // 设置Y轴 文字颜色
+          },
+          axisLine: {
+            lineStyle: {
+              color: "#999",      // 设置Y轴 的颜色
+            }
+          },
+          splitLine: {
+            lineStyle: {
+              color: ["#abcdef", "#999"],   // 使用深浅的间隔色
+              width: 1,                     // 分割线的宽度
+              type: "dashed"                 // 分割线的类型
+            }
+          }                
         },
         grid: {
-            left: '50px',
-            right: '50px',
-            top: '10%',
-            bottom: '10%'
+            left: "80px",
+            right: "80px",
+            top: "10%",
+            bottom: "10%"
         },        
         series: [
           {
             data: data,
+            color: "#0097A7",     // 设置线条颜色
             type: "line",
+            smooth: 0.3,            // 设置弧度
             itemStyle : { normal: {label : {show: true}}},      // 显示数值
           },
         ]
