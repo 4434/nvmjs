@@ -4,15 +4,13 @@
     <div class="center">
       <router-view/>
     </div>
-    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import TopHeader from "@/components/common/TopHeader.vue";
-import Footer from "@/components/common/Footer";
 export default {
-  components: { TopHeader, Footer },
+  components: { TopHeader },
   name: "HelloWorld",
   props: {
     msg: String
@@ -28,7 +26,7 @@ export default {
   }
   .center{
     width: 100%;
-    height: calc(100% - 72px - 50px);
+    height: calc(100% - 72px);
     overflow-y: auto;
   }
 </style>
