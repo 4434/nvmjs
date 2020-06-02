@@ -1,21 +1,58 @@
+import { tankState, brick } from './tool'
 class canvasAbility {
 	fillStyle  = '#fff';		// 填充颜色
 	colorArr   = ['#68ff03','#03a9ff','#026dff','#ff1705',"#ff9600","#363535","#b98080","#0ac1f6","#050b43","#5059ac"];
 	vx = 4;
 	vy = 4;
-	npcNUm = 6;
-	player = {x: 100, y: 600, r: 4, direction: 0, speed: 10, color: '#0097A7', bullet: []};		// 玩家	
-	npcArr = this.npcCreate(this.npcNUm);
-
+	npcNUm     = 6;
+	player     = {x: 100, y: 600, r: 2, direction: 0, speed: 5, color: '#0097A7', bullet: []};		// 玩家
+	playerBall = {size: 3, color: 'red', speed: 20}
+	npcAttr    = {x: 0, y: 0, r: 2, direction: Math.round(Math.random()*10%4), speed: 1, color: '#abcdef', bullet: []}
+	npcArr     = this.npcCreate(this.npcAttr, this.npcNUm);		// 生成 npc
+	brickArr   = []												// 墙体
+	down       = false
+	npcBall = {size: 2, color: 'red', speed: 1}	// npc 子弹属性
 	deathBall = [];		// 爆炸后的残骸
 
 	constructor (ctx, w, h) {
-		this.ctx 		= ctx;	
+		this.ctx 		= ctx;
 		this.w   		= w;
 		this.h   		= h;
 		this.init(this.player, this.npcArr, this.deathBall);
-		this.keySet(this.player);		
+		this.keySet(this.playerBall);
+		this.rowBrick({x: parseInt((this.w/13) * 1), y: 100, r: 3, color: 'red', direction: 0}, 8, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 3), y: 100, r: 3, color: 'red', direction: 0}, 8, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 5), y: 100, r: 3, color: 'red', direction: 0}, 6, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 7), y: 100, r: 3, color: 'red', direction: 0}, 6, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 9), y: 100, r: 3, color: 'red', direction: 0}, 8, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 11), y: 100, r: 3, color: 'red', direction: 0}, 8, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 1), y: 400, r: 3, color: 'red', direction: 0}, 10, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 3), y: 400, r: 3, color: 'red', direction: 0}, 10, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 5), y: 400, r: 3, color: 'red', direction: 0}, 8, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 7), y: 400, r: 3, color: 'red', direction: 0}, 8, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 9), y: 400, r: 3, color: 'red', direction: 0}, 10, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 11), y: 400, r: 3, color: 'red', direction: 0}, 10, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 5), y: 500, r: 3, color: 'red', direction: 0}, 4, 1);		
+	}	
+
+	rowBrick (item, num = 10, type = 1) {		// 行墙
+		if(type == 1){
+			for(let i=0; i<num; i++){
+				item.x = item.x + 4*2*item.r;
+				item.position = this.brickTrajectory(item.x, item.y, item.r);
+				this.brickArr.push({...item});
+			}
+		}
+
+		if(type == 2){							// 纵墙
+			for(let i=0; i<num; i++){
+				item.y = item.y + 4*2*item.r;
+				item.position = this.brickTrajectory(item.x, item.y, item.r);
+				this.brickArr.push({...item});
+			}			
+		}
 	}
+	
 
 	clear (x,y,w,h) {
 		this.ctx.clearRect(x,y,w,h);
@@ -37,21 +74,28 @@ class canvasAbility {
 			that.clear(0,0,that.w,that.h);
 			if(that.npcArr.length == 0){
 				that.npcNUm ++
-				that.npcArr = that.npcCreate(that.npcNUm);
+				that.npcArr = that.npcCreate(that.npcAttr, that.npcNUm);
 			}
-			that.npc(that.npcArr);		// npc
+			that.npc(that.npcArr, that.brickArr);		// npc
 			if(that.player){
-				that.tank(that.player.x, that.player.y, that.player.r, that.player.direction, that.player.color);   // 玩家坦克
+				that.tank(tankState,that.player.x, that.player.y, that.player.r, that.player.direction, that.player.color);   // 玩家坦克
 				that.player.position = that.tankTrajectory(that.player.x, that.player.y, that.player.r);   	// 玩家坐标
 				that.playerBullet(that.player);													// 玩家子弹
-				that.hit(that.player, that.npcArr, that.deathBall);							// 命中					
+				that.hit(that.player, that.npcArr, that.brickArr);							// 命中					
 			}
 
 			// 死亡		
 			for(let i=0; i<that.deathBall.length; i++){
 				that.blast(that.deathBall[i]);
 			}
-				
+
+			// 墙壁 
+			for(let i=0; i<that.brickArr.length; i++){
+				that.tank(brick, that.brickArr[i].x, that.brickArr[i].y, that.brickArr[i].r, that.brickArr[i].direction, 'red');
+			}
+
+			// 玩家轨迹行为
+			that.playerTrack(that.down);
 		})();			
 			
 
@@ -61,21 +105,20 @@ class canvasAbility {
 			}
 		},2000);
 
-		setInterval(()=>{	// 每隔500ms 生成一颗子弹
+		setInterval(()=>{	// npc 每隔500ms 生成一颗子弹
 			for(let i=0; i<this.npcArr.length; i++){
-				let newBullet = {x: this.npcArr[i].x + 3*2*this.npcArr[i].r + this.npcArr[i].r/2, y: this.npcArr[i].y + 3*2*this.npcArr[i].r + this.npcArr[i].r/2, r:4, direction: this.npcArr[i].direction, speed: 10, color: '#abcdef'};
+				let newBullet = {x: this.npcArr[i].x + 3*2*this.npcArr[i].r + this.npcArr[i].r/2, y: this.npcArr[i].y + 3*2*this.npcArr[i].r + this.npcArr[i].r/2, r: this.npcBall.size, direction: this.npcArr[i].direction, speed: this.npcBall.speed, color: this.npcBall.color};
 				this.npcArr[i].bullet.push(newBullet);
 			}		
 		}, 500);
 
 	}
 	
-	npcCreate (n) {
+	npcCreate (npc, n) {
 		let arr = [];
 		for(let i = 0; i < n; i++) {
-			arr.push({x: 0, y: 0, r: 5, direction: Math.round(Math.random()*10%4), speed: 5, color: '#abcdef', bullet: []});
+			arr.push({...npc});
 		}
-		console.log(arr);
 		return arr;
 	}
 
@@ -117,8 +160,9 @@ class canvasAbility {
 		}				
 	}
 
-	npc (npcArr) {
+	npc (npcArr, brickArr) {		
 		for(let i=0; i<npcArr.length; i++){
+			// 边界转向
 			if(npcArr[i].x <= 0){
 				npcArr[i].direction = 1;
 			}
@@ -132,6 +176,14 @@ class canvasAbility {
 				npcArr[i].direction = 2;
 			}			
 
+			// 墙体转向
+
+			for(let j=0; j<brickArr.length; j++){
+				if(!(brickArr[j].position.x1 > npcArr[i].position.x2 || brickArr[j].position.x2 < this.npcArr[i].position.x1 || brickArr[j].position.y1 > npcArr[i].position.y2 || brickArr[j].position.y2 < npcArr[i].position.y1)){
+					npcArr[i].direction = Math.round(Math.random()*3);
+				}
+			}
+
 			if(npcArr[i].direction == 0){
 				npcArr[i].x = npcArr[i].x - npcArr[i].speed;
 			}
@@ -144,9 +196,8 @@ class canvasAbility {
 			if(npcArr[i].direction == 3){
 				npcArr[i].y = npcArr[i].y + npcArr[i].speed;
 			}
-
 			npcArr[i].position = this.tankTrajectory(npcArr[i].x, npcArr[i].y, npcArr[i].r);
-			this.tank(npcArr[i].x, npcArr[i].y, npcArr[i].r, npcArr[i].direction, npcArr[i].color);
+			this.tank(tankState,npcArr[i].x, npcArr[i].y, npcArr[i].r, npcArr[i].direction, npcArr[i].color);
 			this.npcBullet(npcArr[i]);
 		}
 	}
@@ -190,33 +241,59 @@ class canvasAbility {
 		}
 	}
 
-	hit (player, npcArr, deathBall) {		//击中 
-		bbb: for(let i=0; i<player.bullet.length; i++){
+	hit (player, npcArr, brickArr) {		
+		aaa: for(let i=0; i<player.bullet.length; i++){	 // 玩家击中坦克
 			for(let j=0; j<npcArr.length; j++){
-				if(player.bullet[i].position.x1 >= npcArr[j].position.x1 && player.bullet[i].position.y1 >= npcArr[j].position.y1 && player.bullet[i].position.x2 <= npcArr[j].position.x2 && player.bullet[i].position.y2 <= npcArr[j].position.y2 || player.bullet[i].position.x1 <= npcArr[j].position.x1 && player.bullet[i].position.y1 <= npcArr[j].position.y1 && player.bullet[i].position.x2 >= npcArr[j].position.x2 && player.bullet[i].position.y2 >= npcArr[j].position.y2){
-					console.log('玩家命中');
-					deathBall = this.death(npcArr[j], deathBall);
+				if(!(player.bullet[i].position.x1 > npcArr[j].position.x2 || player.bullet[i].position.x2 < npcArr[j].position.x1 || player.bullet[i].position.y1 > npcArr[j].position.y2 || player.bullet[i].position.y2 < npcArr[j].position.y1)){
+					console.log('玩家命中NPC');
+					this.deathBall = this.death(npcArr[j], this.deathBall);
 					npcArr.splice(j,1);
+					player.bullet.splice(i,1);
+					continue aaa;
+				}
+			}
+		}
+		bbb: for(let i=0; i<player.bullet.length; i++){  // 玩家击中墙壁
+			for(let j=0; j<brickArr.length; j++){
+				if(!(player.bullet[i].position.x1 > brickArr[j].position.x2 || player.bullet[i].position.x2 < brickArr[j].position.x1 || player.bullet[i].position.y2 < brickArr[j].position.y1 || player.bullet[i].position.y1 > brickArr[j].position.y2)){
+					console.log('玩家命中墙壁');
+					this.deathBall = this.death(brickArr[j], this.deathBall, 'brick');
+					brickArr.splice(j,1);
 					player.bullet.splice(i,1);
 					continue bbb;
 				}
 			}
 		}
-		ccc: for(let i=0; i<npcArr.length; i++){
+		ccc: for(let i=0; i<npcArr.length; i++){	// NPC击中玩家
 			for(let j=0; j<npcArr[i].bullet.length; j++){
-				if(npcArr[i].bullet[j].position.x1 >= player.position.x1 && npcArr[i].bullet[j].position.y1 >= player.position.y1 && npcArr[i].bullet[j].position.x2 <= player.position.x2 && npcArr[i].bullet[j].position.y2 <= player.position.y2){
+				if(!(npcArr[i].bullet[j].position.x1 > player.position.x2 || npcArr[i].bullet[j].position.x2 < player.position.x1 || npcArr[i].bullet[j].position.y1 > player.position.y2 || npcArr[i].bullet[j].position.y2 < player.position.y1)){
 					console.log('玩家被击中');
 					npcArr[i].bullet.splice(j,1);
-					deathBall = this.death(player, deathBall);
+					this.deathBall = this.death(player, this.deathBall);
 					this.player = null;
 					break ccc;
 				}
 			}
-		}				
+		}
+
+		ddd: for(let i=0; i<npcArr.length; i++){	// NPC击中墙壁
+			for(let j=0; j<npcArr[i].bullet.length; j++){
+				for(let m=0; m<brickArr.length; m++){
+					if(!(npcArr[i].bullet[j].position.x1 > brickArr[m].position.x2 || npcArr[i].bullet[j].position.x2 < brickArr[m].position.x1 || npcArr[i].bullet[j].position.y1 > brickArr[m].position.y2 || npcArr[i].bullet[j].position.y2 < brickArr[m].position.y1)){
+						console.log('墙壁被击中');
+						npcArr[i].bullet.splice(j,1);
+						this.deathBall = this.death(brickArr[m], this.deathBall, 'brick');
+						brickArr.splice(m,1);
+						break ddd;
+					}
+				}
+			}
+		}
+						
 	}
 
-	tank (x,y,ballR,letter,color) {				// 绘制坦克
-		let arr = this.letter()[letter];
+	tank (item, x=0, y=0, ballR=2,direction = 0,color = 'red') {				// 绘制坦克 and 墙壁
+		let arr = item[direction];
 		for(let i=0; i<arr.length; i++){
 			let ballX = x + i*2*ballR + ballR;
 			for(let j=0; j< arr[i].length; j++){
@@ -228,8 +305,14 @@ class canvasAbility {
 		}		
 	}
 
-	death (tank,deathBall) {					// 坦克爆炸效果					
-		let arr = this.letter()[tank.direction];
+	death (tank, deathBall, type = 'tank') {					// 坦克 and 墙壁 爆炸效果					
+		let arr;
+		if(type == 'tank'){
+			arr = tankState[tank.direction]
+		}
+		if(type == 'brick'){
+			arr = brick[tank.direction]
+		}
 		for(let m=0; m<arr.length; m++){
 			let ballX = tank.x + m*2*tank.r + tank.r;
 			for(let j=0; j< arr[m].length; j++){
@@ -237,8 +320,8 @@ class canvasAbility {
 				if(arr[m][j] == 1){
 					let json = {x:ballX, y:ballY, r: tank.r, vx: Math.random()*10-5, vy: Math.random()*10-5, color: this.colorArr[Math.floor(Math.random()*10)]}
 					deathBall.push(json);
-					if(deathBall.length > 200){
-						deathBall.splice(deathBall.length - 200, 200);
+					if(deathBall.length > 500){
+						deathBall.splice(deathBall.length - 500, 500);
 					}
 				}
 			}
@@ -264,13 +347,21 @@ class canvasAbility {
 		this.ctx.closePath();
 	}	
 
+	brickTrajectory (x,y,r) {		// 墙体坐标	
+		let json = {};
+		json.x1 = x-r,
+		json.y1 = y-r,
+		json.x2 = json.x1 + 4*2*r,
+		json.y2 = json.y1 + 4*2*r;
+		return json;	
+	}
 
 	tankTrajectory (x,y,r) {	// 坦克坐标
 		let json = {};
-		json.x1 = x,
-		json.y1 = y,
-		json.x2 = x + 6*2*r,
-		json.y2 = y + 6*2*r;
+		json.x1 = x-r,
+		json.y1 = y-r,
+		json.x2 = json.x1 + 6*2*r,
+		json.y2 = json.y1 + 6*2*r;
 		return json;			
 	}
 
@@ -282,111 +373,88 @@ class canvasAbility {
 		json.y2 = y + r;
 		return json;
 	}
+	playerTrack (down) {
+		let that = this;
+		if(down){
+			if(that.player.direction == 0){
+				that.player.x = that.player.x - that.player.speed;
+			}
+			if(that.player.direction == 2){
+				that.player.y = that.player.y - that.player.speed;
+			}
+			if(that.player.direction == 1){
+				that.player.x = that.player.x + that.player.speed;
+			}
+			if(that.player.direction == 3){
+				that.player.y = that.player.y + that.player.speed;
+			}
 
-	keySet (player) {
-		let down = false,
-			time;	
+			if(that.player.x <= 0 + that.player.r){			// 边界判定
+				that.player.x = that.player.position.x1 + that.player.r + 1;
+			}
+			if(that.player.position.x2 >= that.w){
+				that.player.x = that.player.position.x1 + that.player.r - 1;
+			}
+			if(that.player.y <= 0){
+				that.player.y = that.player.position.y1 +  that.player.r + 1;
+			}
+			if(that.player.y2 >= that.h){
+				that.player.y = that.player.position.y1 + that.player.r - 1;
+			}
+			for(let i=0; that.brickArr.length; i++){	// 墙体判定
+				if(!(that.player.position.x2 <= that.brickArr[i].position.x1 || that.player.position.x1 >= that.brickArr[i].position.x2 || that.player.position.y1 >= that.brickArr[i].position.y2 || that.player.position.y2 <= that.brickArr[i].position.y1)){
+					if(that.player.direction == 0){
+						that.player.x = that.player.x + 5;
+					}
+					if(that.player.direction == 1){
+						that.player.x = that.player.x - 5;
+					}
+					if(that.player.direction == 2){
+						that.player.y = that.player.y - 5;
+					}
+					if(that.player.direction == 3){
+						that.player.y = that.player.y + 5;
+					}
+				}
+			}
+			that.player.x1 = that.player.x - that.player.r;
+			that.player.y1 = that.player.y - that.player.r;
+			that.player.x2 = that.player.x1 + 2*that.player.r*6;
+			that.player.y2 = that.player.y1 + 2*that.player.r*6;				
+		}
+	}
+	keySet (ball) {
+		let that = this;
 		document.onkeydown = function (event) {
-			if(!player){
+			if(!that.player){
 				return;
 			}
 			if(event.keyCode == 32){
-				let newBullet = {x: player.x + 3*2*player.r + player.r/2, y: player.y + 3*2*player.r + player.r/2, r:4, direction: player.direction, speed: 20, color: '#0097A7'};
-				player.bullet.push(newBullet);
+				let newBullet = {x: that.player.x + 3*2*that.player.r + that.player.r/2, y: that.player.y + 3*2*that.player.r + that.player.r/2, r: ball.size, direction: that.player.direction, speed: ball.speed, color: ball.color};
+				that.player.bullet.push(newBullet);
 				return;			
 			}
-
 			if(event.keyCode == 37){
-				player.direction = 0;
+				that.player.direction = 0;
+				that.down = true;
 			}
 			if(event.keyCode == 38){
-				player.direction = 2;
+				that.player.direction = 2;
+				that.down = true;
 			}
 			if(event.keyCode == 39){
-				player.direction = 1;
+				that.player.direction = 1;
+				that.down = true;
 			}
 			if(event.keyCode == 40){
-				player.direction = 3;
+				that.player.direction = 3;
+				that.down = true;
 			}
-
-			if(!down){
-				time = setInterval(()=>{
-					if(player.direction == 0){
-						player.x = player.x - player.speed;
-					}
-					if(player.direction == 2){
-						player.y = player.y - player.speed;
-					}
-					if(player.direction == 1){
-						player.x = player.x + player.speed;
-					}
-					if(player.direction == 3){
-						player.y = player.y + player.speed;
-					}
-
-					if(player.x <= 0){
-						player.x = 0;
-					}
-					if(player.x >= this.w){
-						player.x = this.w;
-					}
-					if(player.y <= 0){
-						player.y = 0;
-					}
-					if(player.y >= this.h){
-						player.y = this.h;
-					}
-
-					player.x1 = player.x - player.r;
-					player.y1 = player.y - player.r;
-					player.x2 = player.x + player.r;
-					player.y2 = player.y + player.r;
-
-				}, 10);
-			}
-			down = true;
 			document.onkeyup = function() {
-				down = false;
-				clearInterval(time);
+				that.down = false;
 			}		
 		}		
-	}		
-
-	letter () {
-		let letters = [
-			[
-				[0,0,1,1,0,0],
-				[0,0,1,1,0,0],
-				[1,1,1,1,1,1],
-				[1,1,1,1,1,1],
-				[1,1,1,1,1,1],
-				[1,1,1,1,1,1]			
-			],[
-				[1,1,1,1,1,1],
-				[1,1,1,1,1,1],
-				[1,1,1,1,1,1],
-				[1,1,1,1,1,1],
-				[0,0,1,1,0,0],
-				[0,0,1,1,0,0]			
-			],[
-				[0,0,1,1,1,1],
-				[0,0,1,1,1,1],
-				[1,1,1,1,1,1],
-				[1,1,1,1,1,1],
-				[0,0,1,1,1,1],
-				[0,0,1,1,1,1]			
-			],[
-				[1,1,1,1,0,0],
-				[1,1,1,1,0,0],
-				[1,1,1,1,1,1],
-				[1,1,1,1,1,1],
-				[1,1,1,1,0,0],
-				[1,1,1,1,0,0]			
-			],
-
-		]
-		return letters;
-	}   
+	}  
 }
 
 export default canvasAbility;
