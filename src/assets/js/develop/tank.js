@@ -5,13 +5,13 @@ class canvasAbility {
 	vx = 4;
 	vy = 4;
 	npcNUm     = 6;
-	player     = {x: 100, y: 600, r: 2, direction: 0, speed: 5, color: '#0097A7', bullet: []};		// 玩家
-	playerBall = {size: 3, color: 'red', speed: 20}
-	npcAttr    = {x: 0, y: 0, r: 2, direction: Math.round(Math.random()*10%4), speed: 1, color: '#abcdef', bullet: []}
+	player     = {x: 100, y: 600, r: 4, direction: 0, speed: 5, color: '#0097A7', bullet: []};		// 玩家
+	playerBall = {size: 4, color: 'red', speed: 20}													// 玩家子弹属性
+	npcAttr    = {x: 0, y: 0, r: 4, direction: Math.round(Math.random()*10%4), speed: 1, color: '#abcdef', bullet: []}
 	npcArr     = this.npcCreate(this.npcAttr, this.npcNUm);		// 生成 npc
 	brickArr   = []												// 墙体
 	down       = false
-	npcBall = {size: 2, color: 'red', speed: 1}	// npc 子弹属性
+	npcBall = {size: 4, color: 'red', speed: 1}	// npc 子弹属性
 	deathBall = [];		// 爆炸后的残骸
 
 	constructor (ctx, w, h) {
@@ -21,19 +21,19 @@ class canvasAbility {
 		this.keySet(this.playerBall);
 		this.player.position = this.tankTrajectory(this.player.x, this.player.y, this.player.r); 
 
-		this.rowBrick({x: parseInt((this.w/13) * 1), y: 100, r: 3, color: 'red', direction: 0}, 8, 2);
-		this.rowBrick({x: parseInt((this.w/13) * 3), y: 100, r: 3, color: 'red', direction: 0}, 8, 2);
-		this.rowBrick({x: parseInt((this.w/13) * 5), y: 100, r: 3, color: 'red', direction: 0}, 6, 2);
-		this.rowBrick({x: parseInt((this.w/13) * 7), y: 100, r: 3, color: 'red', direction: 0}, 6, 2);
-		this.rowBrick({x: parseInt((this.w/13) * 9), y: 100, r: 3, color: 'red', direction: 0}, 8, 2);
-		this.rowBrick({x: parseInt((this.w/13) * 11), y: 100, r: 3, color: 'red', direction: 0}, 8, 2);
-		this.rowBrick({x: parseInt((this.w/13) * 1), y: 400, r: 3, color: 'red', direction: 0}, 10, 2);
-		this.rowBrick({x: parseInt((this.w/13) * 3), y: 400, r: 3, color: 'red', direction: 0}, 10, 2);
-		this.rowBrick({x: parseInt((this.w/13) * 5), y: 400, r: 3, color: 'red', direction: 0}, 8, 2);
-		this.rowBrick({x: parseInt((this.w/13) * 7), y: 400, r: 3, color: 'red', direction: 0}, 8, 2);
-		this.rowBrick({x: parseInt((this.w/13) * 9), y: 400, r: 3, color: 'red', direction: 0}, 10, 2);
-		this.rowBrick({x: parseInt((this.w/13) * 11), y: 400, r: 3, color: 'red', direction: 0}, 10, 2);
-		this.rowBrick({x: parseInt((this.w/13) * 5), y: 500, r: 3, color: 'red', direction: 0}, 4, 1);
+		this.rowBrick({x: parseInt((this.w/13) * 1), y: 100, r: 4, color: 'red', direction: 0}, 8, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 3), y: 100, r: 4, color: 'red', direction: 0}, 8, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 5), y: 100, r: 4, color: 'red', direction: 0}, 6, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 7), y: 100, r: 4, color: 'red', direction: 0}, 6, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 9), y: 100, r: 4, color: 'red', direction: 0}, 8, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 11), y: 100, r: 4, color: 'red', direction: 0}, 8, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 1), y: 400, r: 4, color: 'red', direction: 0}, 10, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 3), y: 400, r: 4, color: 'red', direction: 0}, 10, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 5), y: 400, r: 4, color: 'red', direction: 0}, 8, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 7), y: 400, r: 4, color: 'red', direction: 0}, 8, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 9), y: 400, r: 4, color: 'red', direction: 0}, 10, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 11), y: 400, r: 4, color: 'red', direction: 0}, 10, 2);
+		this.rowBrick({x: parseInt((this.w/13) * 5), y: 500, r: 4, color: 'red', direction: 0}, 4, 1);
 		
 		this.init();
 

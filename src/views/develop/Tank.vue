@@ -28,7 +28,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .tank{
     width: 100%;
     height: 100%;
@@ -36,6 +36,9 @@
   .canvas-box{
     width: 100%;
     height: 100%;
-    background: #000;
+    position: relative;
+    canvas{
+      background: #000;
+    }
   }
 </style>
