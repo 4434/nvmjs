@@ -18,8 +18,9 @@ class canvasAbility {
 		this.ctx 		= ctx;
 		this.w   		= w;
 		this.h   		= h;
-		this.init(this.player, this.npcArr, this.deathBall);
 		this.keySet(this.playerBall);
+		this.player.position = this.tankTrajectory(this.player.x, this.player.y, this.player.r); 
+
 		this.rowBrick({x: parseInt((this.w/13) * 1), y: 100, r: 3, color: 'red', direction: 0}, 8, 2);
 		this.rowBrick({x: parseInt((this.w/13) * 3), y: 100, r: 3, color: 'red', direction: 0}, 8, 2);
 		this.rowBrick({x: parseInt((this.w/13) * 5), y: 100, r: 3, color: 'red', direction: 0}, 6, 2);
@@ -32,7 +33,10 @@ class canvasAbility {
 		this.rowBrick({x: parseInt((this.w/13) * 7), y: 400, r: 3, color: 'red', direction: 0}, 8, 2);
 		this.rowBrick({x: parseInt((this.w/13) * 9), y: 400, r: 3, color: 'red', direction: 0}, 10, 2);
 		this.rowBrick({x: parseInt((this.w/13) * 11), y: 400, r: 3, color: 'red', direction: 0}, 10, 2);
-		this.rowBrick({x: parseInt((this.w/13) * 5), y: 500, r: 3, color: 'red', direction: 0}, 4, 1);		
+		this.rowBrick({x: parseInt((this.w/13) * 5), y: 500, r: 3, color: 'red', direction: 0}, 4, 1);
+		
+		this.init();
+
 	}	
 
 	rowBrick (item, num = 10, type = 1) {		// 行墙
@@ -53,7 +57,6 @@ class canvasAbility {
 		}
 	}
 	
-
 	clear (x,y,w,h) {
 		this.ctx.clearRect(x,y,w,h);
 	}
@@ -76,26 +79,31 @@ class canvasAbility {
 				that.npcNUm ++
 				that.npcArr = that.npcCreate(that.npcAttr, that.npcNUm);
 			}
-			that.npc(that.npcArr, that.brickArr);		// npc
-			if(that.player){
-				that.tank(tankState,that.player.x, that.player.y, that.player.r, that.player.direction, that.player.color);   // 玩家坦克
-				that.player.position = that.tankTrajectory(that.player.x, that.player.y, that.player.r);   	// 玩家坐标
-				that.playerBullet(that.player);													// 玩家子弹
-				that.hit(that.player, that.npcArr, that.brickArr);							// 命中					
-			}
-
-			// 死亡		
-			for(let i=0; i<that.deathBall.length; i++){
-				that.blast(that.deathBall[i]);
-			}
 
 			// 墙壁 
 			for(let i=0; i<that.brickArr.length; i++){
 				that.tank(brick, that.brickArr[i].x, that.brickArr[i].y, that.brickArr[i].r, that.brickArr[i].direction, 'red');
 			}
 
-			// 玩家轨迹行为
-			that.playerTrack(that.down);
+			// 玩家
+			if(that.player){
+				that.tank(tankState,that.player.x, that.player.y, that.player.r, that.player.direction, that.player.color);   // 玩家坦克
+				that.player.position = that.tankTrajectory(that.player.x, that.player.y, that.player.r);   	// 玩家位置
+				that.playerBullet(that.player); // 玩家子弹			
+				that.playerTrack(that.player, that.down);	// 玩家轨迹行为
+			}
+
+			// npc and 轨迹行为
+			that.npc(that.npcArr, that.brickArr);
+			
+			// 命中	
+			that.hit(that.player, that.npcArr, that.brickArr);
+						
+			// 死亡		
+			for(let i=0; i<that.deathBall.length; i++){
+				that.blast(that.deathBall[i]);
+			}			
+
 		})();			
 			
 
@@ -117,6 +125,7 @@ class canvasAbility {
 	npcCreate (npc, n) {
 		let arr = [];
 		for(let i = 0; i < n; i++) {
+			npc.position = this.tankTrajectory(npc.x, npc.y, npc.r); 
 			arr.push({...npc});
 		}
 		return arr;
@@ -241,40 +250,42 @@ class canvasAbility {
 		}
 	}
 
-	hit (player, npcArr, brickArr) {		
-		aaa: for(let i=0; i<player.bullet.length; i++){	 // 玩家击中坦克
-			for(let j=0; j<npcArr.length; j++){
-				if(!(player.bullet[i].position.x1 > npcArr[j].position.x2 || player.bullet[i].position.x2 < npcArr[j].position.x1 || player.bullet[i].position.y1 > npcArr[j].position.y2 || player.bullet[i].position.y2 < npcArr[j].position.y1)){
-					console.log('玩家命中NPC');
-					this.deathBall = this.death(npcArr[j], this.deathBall);
-					npcArr.splice(j,1);
-					player.bullet.splice(i,1);
-					continue aaa;
+	hit (player, npcArr, brickArr) {	
+		if (player) {
+			aaa: for(let i=0; i<player.bullet.length; i++){	 // 玩家击中坦克
+				for(let j=0; j<npcArr.length; j++){
+					if(!(player.bullet[i].position.x1 > npcArr[j].position.x2 || player.bullet[i].position.x2 < npcArr[j].position.x1 || player.bullet[i].position.y1 > npcArr[j].position.y2 || player.bullet[i].position.y2 < npcArr[j].position.y1)){
+						console.log('玩家命中NPC');
+						this.deathBall = this.death(npcArr[j], this.deathBall);
+						npcArr.splice(j,1);
+						player.bullet.splice(i,1);
+						continue aaa;
+					}
 				}
 			}
-		}
-		bbb: for(let i=0; i<player.bullet.length; i++){  // 玩家击中墙壁
-			for(let j=0; j<brickArr.length; j++){
-				if(!(player.bullet[i].position.x1 > brickArr[j].position.x2 || player.bullet[i].position.x2 < brickArr[j].position.x1 || player.bullet[i].position.y2 < brickArr[j].position.y1 || player.bullet[i].position.y1 > brickArr[j].position.y2)){
-					console.log('玩家命中墙壁');
-					this.deathBall = this.death(brickArr[j], this.deathBall, 'brick');
-					brickArr.splice(j,1);
-					player.bullet.splice(i,1);
-					continue bbb;
+			bbb: for(let i=0; i<player.bullet.length; i++){  // 玩家击中墙壁
+				for(let j=0; j<brickArr.length; j++){
+					if(!(player.bullet[i].position.x1 > brickArr[j].position.x2 || player.bullet[i].position.x2 < brickArr[j].position.x1 || player.bullet[i].position.y2 < brickArr[j].position.y1 || player.bullet[i].position.y1 > brickArr[j].position.y2)){
+						console.log('玩家命中墙壁');
+						this.deathBall = this.death(brickArr[j], this.deathBall, 'brick');
+						brickArr.splice(j,1);
+						player.bullet.splice(i,1);
+						continue bbb;
+					}
 				}
 			}
-		}
-		ccc: for(let i=0; i<npcArr.length; i++){	// NPC击中玩家
-			for(let j=0; j<npcArr[i].bullet.length; j++){
-				if(!(npcArr[i].bullet[j].position.x1 > player.position.x2 || npcArr[i].bullet[j].position.x2 < player.position.x1 || npcArr[i].bullet[j].position.y1 > player.position.y2 || npcArr[i].bullet[j].position.y2 < player.position.y1)){
-					console.log('玩家被击中');
-					npcArr[i].bullet.splice(j,1);
-					this.deathBall = this.death(player, this.deathBall);
-					this.player = null;
-					break ccc;
+			ccc: for(let i=0; i<npcArr.length; i++){	// NPC击中玩家
+				for(let j=0; j<npcArr[i].bullet.length; j++){
+					if(!(npcArr[i].bullet[j].position.x1 > player.position.x2 || npcArr[i].bullet[j].position.x2 < player.position.x1 || npcArr[i].bullet[j].position.y1 > player.position.y2 || npcArr[i].bullet[j].position.y2 < player.position.y1)){
+						console.log('玩家被击中');
+						npcArr[i].bullet.splice(j,1);
+						this.deathBall = this.death(player, this.deathBall);
+						this.player = null;
+						break ccc;
+					}
 				}
-			}
-		}
+			}			
+		}	
 
 		ddd: for(let i=0; i<npcArr.length; i++){	// NPC击中墙壁
 			for(let j=0; j<npcArr[i].bullet.length; j++){
@@ -373,54 +384,53 @@ class canvasAbility {
 		json.y2 = y + r;
 		return json;
 	}
-	playerTrack (down) {
+	playerTrack (player, down) {
 		let that = this;
 		if(down){
-			if(that.player.direction == 0){
-				that.player.x = that.player.x - that.player.speed;
+			if(player.direction == 0){
+				player.x = player.x - player.speed;
 			}
-			if(that.player.direction == 2){
-				that.player.y = that.player.y - that.player.speed;
+			if(player.direction == 2){
+				player.y = player.y - player.speed;
 			}
-			if(that.player.direction == 1){
-				that.player.x = that.player.x + that.player.speed;
+			if(player.direction == 1){
+				player.x = player.x + player.speed;
 			}
-			if(that.player.direction == 3){
-				that.player.y = that.player.y + that.player.speed;
+			if(player.direction == 3){
+				player.y = player.y + player.speed;
 			}
 
-			if(that.player.x <= 0 + that.player.r){			// 边界判定
-				that.player.x = that.player.position.x1 + that.player.r + 1;
+			if(player.x <= 0 + player.r){			// 边界判定
+				player.x = player.position.x1 + player.r + 1;
 			}
-			if(that.player.position.x2 >= that.w){
-				that.player.x = that.player.position.x1 + that.player.r - 1;
+			if(player.position.x2 >= that.w){
+				player.x = player.position.x1 + player.r - 1;
 			}
-			if(that.player.y <= 0){
-				that.player.y = that.player.position.y1 +  that.player.r + 1;
+			if(player.y <= 0){
+				player.y = player.position.y1 +  player.r + 1;
 			}
-			if(that.player.y2 >= that.h){
-				that.player.y = that.player.position.y1 + that.player.r - 1;
+			if(player.y2 >= that.h){
+				player.y = player.position.y1 + player.r - 1;
 			}
 			for(let i=0; that.brickArr.length; i++){	// 墙体判定
-				if(!(that.player.position.x2 <= that.brickArr[i].position.x1 || that.player.position.x1 >= that.brickArr[i].position.x2 || that.player.position.y1 >= that.brickArr[i].position.y2 || that.player.position.y2 <= that.brickArr[i].position.y1)){
-					if(that.player.direction == 0){
-						that.player.x = that.player.x + 5;
+				if(!that.brickArr[i]){
+					return;
+				}
+				if(!(player.position.x2 <= that.brickArr[i].position.x1 || player.position.x1 >= that.brickArr[i].position.x2 || player.position.y1 >= that.brickArr[i].position.y2 || player.position.y2 <= that.brickArr[i].position.y1)){
+					if(player.direction == 0){
+						player.x = player.x + 1;
 					}
-					if(that.player.direction == 1){
-						that.player.x = that.player.x - 5;
+					if(player.direction == 1){
+						player.x = player.x - 1;
 					}
-					if(that.player.direction == 2){
-						that.player.y = that.player.y - 5;
+					if(player.direction == 2){
+						player.y = player.y - 1;
 					}
-					if(that.player.direction == 3){
-						that.player.y = that.player.y + 5;
+					if(player.direction == 3){
+						player.y = player.y + 1;
 					}
 				}
-			}
-			that.player.x1 = that.player.x - that.player.r;
-			that.player.y1 = that.player.y - that.player.r;
-			that.player.x2 = that.player.x1 + 2*that.player.r*6;
-			that.player.y2 = that.player.y1 + 2*that.player.r*6;				
+			}			
 		}
 	}
 	keySet (ball) {
