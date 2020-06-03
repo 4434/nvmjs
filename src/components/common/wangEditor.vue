@@ -50,7 +50,7 @@ export default {
           }, error=>{
             // 错误处理
           }, complete=>{
-            insert('http://pito.nvmjs.com/'+complete.key);  //  上传成功之后，将图片插入到编辑器中
+            insert('https://pito.nvmjs.com/'+complete.key);  //  上传成功之后，将图片插入到编辑器中
           })
         },        
       }

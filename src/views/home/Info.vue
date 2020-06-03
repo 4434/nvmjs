@@ -125,7 +125,7 @@ export default {
 					// 错误处理
 					console.log(error);
 				}, complete=>{
-					$this.form.avater = 'http://pito.nvmjs.com/'+complete.key;
+					$this.form.avater = 'https://pito.nvmjs.com/' + complete.key;
 					$this.dialogVisible = false;
 				})				
 			});
