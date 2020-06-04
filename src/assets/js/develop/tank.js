@@ -5,7 +5,6 @@ class canvasAbility {
 	vx = 4;
 	vy = 4;
 	npcNUm     = 6;
-	player     = {x: 100, y: 600, r: 4, direction: 0, speed: 5, color: '#0097A7', bullet: []};		// 玩家
 	playerBall = {size: 4, color: 'red', speed: 20}													// 玩家子弹属性
 	npcAttr    = {x: 0, y: 0, r: 4, direction: Math.round(Math.random()*10%4), speed: 1, color: '#abcdef', bullet: []}
 	npcArr     = this.npcCreate(this.npcAttr, this.npcNUm);		// 生成 npc
@@ -18,6 +17,7 @@ class canvasAbility {
 		this.ctx 		= ctx;
 		this.w   		= w;
 		this.h   		= h;
+		this.player     = {x: this.w/2, y: this.h - 100, r: 4, direction: 2, speed: 5, color: '#0097A7', bullet: []};		// 玩家
 		this.keySet(this.playerBall);
 		this.player.position = this.tankTrajectory(this.player.x, this.player.y, this.player.r); 
 
@@ -398,40 +398,45 @@ class canvasAbility {
 			}
 			if(player.direction == 3){
 				player.y = player.y + player.speed;
-			}
-
-			if(player.x <= 0 + player.r){			// 边界判定
-				player.x = player.position.x1 + player.r + 1;
-			}
-			if(player.position.x2 >= that.w){
-				player.x = player.position.x1 + player.r - 1;
-			}
-			if(player.y <= 0){
-				player.y = player.position.y1 +  player.r + 1;
-			}
-			if(player.y2 >= that.h){
-				player.y = player.position.y1 + player.r - 1;
-			}
-			for(let i=0; that.brickArr.length; i++){	// 墙体判定
-				if(!that.brickArr[i]){
-					return;
-				}
-				if(!(player.position.x2 <= that.brickArr[i].position.x1 || player.position.x1 >= that.brickArr[i].position.x2 || player.position.y1 >= that.brickArr[i].position.y2 || player.position.y2 <= that.brickArr[i].position.y1)){
-					if(player.direction == 0){
-						player.x = player.x + 1;
-					}
-					if(player.direction == 1){
-						player.x = player.x - 1;
-					}
-					if(player.direction == 2){
-						player.y = player.y - 1;
-					}
-					if(player.direction == 3){
-						player.y = player.y + 1;
-					}
-				}
 			}			
 		}
+		if(player.position.x1 <= 0){				// 边界判定
+			player.x = player.x + player.speed;
+			console.log(player.position.x1);
+		}
+		if(player.position.x2 >= that.w){
+			player.x = player.x - player.speed;
+		}
+		if(player.position.y1 <= 0){
+			player.y = player.y + player.speed;
+		}
+		if(player.position.y2 >= that.h){
+			player.y = player.y - player.speed;
+		}
+		for(let i=0; that.brickArr.length; i++){	// 墙体判定
+			if(!that.brickArr[i]){
+				return;
+			}
+			
+			if(!(player.position.x2 <= that.brickArr[i].position.x1 || player.position.x1 >= that.brickArr[i].position.x2 || player.position.y1 >= that.brickArr[i].position.y2 || player.position.y2 <= that.brickArr[i].position.y1)){
+				if(player.direction == 0){
+					player.x = player.x + player.speed;
+					break;
+				}
+				if(player.direction == 2){
+					player.y = player.y + player.speed;
+					break;
+				}
+				if(player.direction == 1){
+					player.x = player.x - player.speed;
+					break;
+				}
+				if(player.direction == 3){
+					player.y = player.y - player.speed;
+					break;
+				}
+			}
+		}		
 	}
 	keySet (ball) {
 		let that = this;
