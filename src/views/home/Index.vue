@@ -37,6 +37,7 @@
         bus.$off('search');
         bus.$on('search', function(data){
             $this.from = Object.assign(data);
+            $this.page.pageIndex = 1;
             $this.getList($this.from);
         });
 
