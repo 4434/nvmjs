@@ -56,6 +56,12 @@ export default {
 				list: [{
 						title: '折线图表', router: 'Echarts', 
 					}]
+				},{
+				title: 'three测试',
+				icon: 'el-icon-info',
+				list: [{
+						title: '开始测试', router: 'Three', 
+					}]
 				}]
 		}
 	},

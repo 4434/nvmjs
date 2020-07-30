@@ -66,6 +66,10 @@ export default new Router({
         path: "/Echarts",
         name: "Echarts",
         component: (resolve) => {require(['@/views/admin/Echarts.vue'], resolve)}
+      },{
+        path: "/Three",
+        name: "Three",
+        component: (resolve) => {require(['@/views/admin/three/Three.vue'], resolve)}
       }]
     },{
       path: '/Login',

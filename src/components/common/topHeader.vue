@@ -6,7 +6,9 @@
                 <input v-model="form.search" type="" @keyup="keyBtn" name="" placeholder="关键字">
                 <span @click="searchBtn" class="search">搜索</span>
                 <span @click="resetBtn" class="search">重置</span>
-                <span @click="$router.push({name: 'Tank'})" class="search">坦克大战</span>
+                <span @click="$router.push({name: 'Tank'})">坦克大战</span>
+                <span @click="$router.push({name: 'keyGame'})">字母游戏</span>
+                <span @click="$router.push({name: 'Calendar'})">日历测试</span>
             </div>
             <div class="right">
                 <div class="sign-in" v-if="!token" @click="goToLogin">登陆</div>            
