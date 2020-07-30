@@ -6,7 +6,7 @@
 	</div>
 </template>
 <script>
-import time from '@/assets/js/develop/time.js';
+import time from '@/utils/develop/time.js';
 export default {
   name: 'timeAbility',
   components: {},

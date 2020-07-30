@@ -45,7 +45,7 @@
     </div>
 </template>
 <script>
-import bus from '@/assets/js/bus.js'
+import bus from '@/utils/bus.js'
 export default {
   components: { },
   name: "top-header",

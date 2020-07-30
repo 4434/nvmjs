@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import snake from '@/assets/js/develop/snake';
+  import snake from '@/utils/develop/snake';
   export default {
     data() {
       return {

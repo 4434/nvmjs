@@ -14,7 +14,7 @@
 <script>
   import articleList from '@/components/common/articleList'
   import pageList from '@/components/common/pageList'
-  import bus from '@/assets/js/bus.js'
+  import bus from '@/utils/bus.js'
   import article from '@/server/article.js'
   export default {
     components: { articleList, pageList },

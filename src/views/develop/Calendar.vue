@@ -27,14 +27,13 @@
           :key="index"
           :class="item | classIndex(date)"
         >{{item.display + 1}}
-
 		</li>
       </ul>
     </div>
   </div>
 </template>
 <script>
-import calendar from "@/assets/js/develop/calendar.js";
+import calendar from "@/utils/develop/calendar.js";
 import { filter } from "minimatch";
 import { stringify } from "querystring";
 let c = new calendar();

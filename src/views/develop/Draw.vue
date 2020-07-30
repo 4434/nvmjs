@@ -68,7 +68,7 @@
 </template>
 
 <script>
-  import drawing from '@/assets/js/develop/drawing';
+  import drawing from '@/utils/develop/drawing';
   export default {
     data() {
       return {

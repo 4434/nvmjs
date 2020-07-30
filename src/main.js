@@ -7,13 +7,13 @@ import './plugins/element.js';
 import loading from '@/components/common/loading/loading.js' // 引入loading
 Vue.use(loading);
 
-import tool from '@/assets/js/yk-tool.js'
+import tool from '@/utils/yk-tool.js'
 Vue.use(tool);
 
 import VueCropper from 'vue-cropper'
 Vue.use(VueCropper)
 
-import filters from '@/assets/js/yk-filter.js'
+import filters from '@/utils/yk-filter.js'
 Object.keys(filters).forEach(key => {  
   Vue.filter(key, filters[key])  
 })

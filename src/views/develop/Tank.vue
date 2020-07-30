@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import tank from '@/assets/js/develop/tank';
+  import tank from '@/utils/develop/tank';
   export default {
     data() {
       return {

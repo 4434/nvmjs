@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import keyGame from '@/assets/js/develop/keyGame';
+  import keyGame from '@/utils/develop/keyGame';
   export default {
     data() {
       return {
