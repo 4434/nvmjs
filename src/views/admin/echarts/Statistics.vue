@@ -13,6 +13,7 @@
           <div class="set">
             <i class="el-icon-edit" @click="dataUpdateBtn(item)"></i>
             <i class="el-icon-delete" @click="deleteBtn(item)"></i>
+            <i class="el-icon-s-opportunity" @click="updataBtn(item)" :class="{active : !item.flag}"></i>            
           </div>          
         </div>
       </li>
@@ -117,7 +118,7 @@ export default {
           {
             data: data,
             color: "#0097A7",     // 设置线条颜色
-            type: "bar",          // 图标类型
+            type: "bar",          //  设置图表类型
             smooth: 0.3,            // 设置弧度
             itemStyle : { normal: {label : {show: true}}},      // 显示数值
           },
@@ -127,7 +128,7 @@ export default {
     },
     addBtn () {
       this.flag.add = true;
-      this.addForm.id = null;
+      this.addForm.id   = null;
       this.$set(this.addForm, 'time', this.timeInit().getTime);
       this.$set(this.addForm, 'num', null);
     },
@@ -161,8 +162,10 @@ export default {
       let titleArr = [],
           numArr = [];
       for(let i=0; i<data.length; i++){
+        if(data[i].flag){
           titleArr.push(data[i].timeString);
           numArr.push(data[i].num);
+        }
       }
       return {
         title: titleArr,
@@ -189,6 +192,7 @@ export default {
           }
         });
       }else{
+        this.addForm.flag = 1;
         echartServe.addData(this.addForm).then(res=>{
           if(res.code == 200){
             this.addForm = {}
@@ -203,6 +207,16 @@ export default {
       this.$set(this.addForm, 'num', item.num);
       this.$set(this.addForm, 'time', item.time);
       this.addForm.id  = item.id;
+    },
+    updataBtn (item) {
+      item.flag = item.flag ? 0 : 1;
+      echartServe.dataUpdate(item).then(res=>{
+        if(res.code == 200){
+          this.addForm = {}
+          this.open('修改成功', 'success');
+          this.getData();
+        }
+      });      
     },
     deleteBtn (item) {
       echartServe.dataDelete({id: item.id}).then(res=>{
@@ -246,7 +260,7 @@ export default {
       font-weight: bold;
     }
     .inner{
-      padding: 8px 20px;
+      padding: 8px 80px 8px 20px;
       position: relative;
       .set{
         position: absolute;
@@ -258,6 +272,9 @@ export default {
           opacity: .5;
           &:hover{
             opacity: 1;
+          }
+          &.active{
+            color: red;
           }
         }
       }
