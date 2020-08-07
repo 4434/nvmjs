@@ -55,6 +55,8 @@ export default {
 				icon: 'el-icon-info',
 				list: [{
 						title: '折线图表', router: 'Echarts', 
+					},{
+						title: '柱状图表', router: 'Statistics', 
 					}]
 				},{
 				title: 'three测试',
