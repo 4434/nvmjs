@@ -63,6 +63,10 @@ export default new Router({
         name: "Draw",
         component: (resolve) => {require(['@/views/develop/Draw.vue'], resolve)}
       },{
+        path: "/CanvasImg",
+        name: "CanvasImg",
+        component: (resolve) => {require(['@/views/develop/CanvasImg.vue'], resolve)}
+      },{
         path: "/Echarts",
         name: "Echarts",
         component: (resolve) => {require(['@/views/admin/echarts/Echarts.vue'], resolve)}

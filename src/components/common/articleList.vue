@@ -1,5 +1,5 @@
 <template>
-    <div class="content">
+    <div class="content-box">
         <div class="null" v-if="articleList.length == 0">
             <img src="@/assets/img/null.jpg" alt="">
         </div>

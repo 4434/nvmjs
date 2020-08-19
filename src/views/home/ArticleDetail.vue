@@ -48,7 +48,7 @@
 		height: 100%;
 		margin-top: 10px;
 		.content{
-			width: 800px;
+			width: 1200px;
 			min-height: 100%;
 			box-sizing: border-box;
 			padding: 40px 20px;

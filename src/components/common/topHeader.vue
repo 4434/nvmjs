@@ -117,7 +117,7 @@ export default {
             display: flex;
             font-size: 14px;
             justify-content: space-between;
-            align-items: center;            
+            align-items: center;
             .left{
                 color: #333;
                 display: flex;

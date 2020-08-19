@@ -28,5 +28,8 @@ export default {
     width: 100%;
     height: calc(100% - 72px);
     overflow-y: auto;
+    &::-webkit-scrollbar{
+        width:0;
+    }    
   }
 </style>
