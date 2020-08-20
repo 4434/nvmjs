@@ -24,6 +24,8 @@ export default {
 				title: '文章管理',
 				icon: 'el-icon-info',
 				list: [{
+						title: 'Markdown', router: 'Markdown', 
+					},{
 						title: '创作文章', router: 'articleWrite', 
 					},{
 						title: '文章列表', router: 'articleList' ,

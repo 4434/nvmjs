@@ -83,7 +83,8 @@
             })
         },
     	handleEdit (data) {
-    		this.$router.push({name: 'articleWrite', query: {id: data.id}});
+			const name = data.markdown ? 'Markdown' : 'articleWrite';
+    		this.$router.push({name: name, query: {id: data.id}});
     	},
     	handleDelete (data) {
     		this.$confirm('确定要删除这篇文章吗？', '提示信息',{

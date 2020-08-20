@@ -27,6 +27,10 @@ export default new Router({
       path: '/admin',
       component: (resolve) => {require(['@/views/admin/admin'], resolve)},
       children: [{
+        path: '/Markdown',
+        name: 'Markdown',
+        component: (resolve) => {require(['@/views/admin/Markdown'], resolve)}
+      },{
         path: '/articleWrite',
         name: 'articleWrite',
         component: (resolve) => {require(['@/views/admin/articleWrite'], resolve)}
