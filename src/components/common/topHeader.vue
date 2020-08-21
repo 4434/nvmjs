@@ -134,6 +134,10 @@ export default {
                     border-bottom: 1px solid #ddd;
                     margin-left: 40px;
                     outline: none;
+                    transition: all .5s;
+                    &:focus{
+                        border-bottom: 1px solid #0097A7;
+                    }
                 }
                 span{
                     margin-left: 20px;

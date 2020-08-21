@@ -70,25 +70,27 @@
         .box-inner{
             width: 100%;
             font-size: 12px;       
-            margin-top: 10px;     
+            margin-top: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 10px, 0.1);     
             .title{                
                 height: 28px;
                 line-height: 28px;
                 padding: 0 10px;
-                border: 1px solid #C9E6F2;
                 background: #F2F9FC;
                 color: teal;
             }
             .inner{
                 min-height: 500px;
-                border: 1px solid #C9E6F2;
                 border-top: 0;
                 padding: 10px;
                 background: #fff;
             }
         }
         .page-box{
-            margin: 20px auto;
+            background: #fff;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
         }
     }
 </style>

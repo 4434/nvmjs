@@ -117,6 +117,18 @@
 			font-size: 14px;
 			line-height: 30px;
 			color: #2f2f2f;
+			h1{
+				line-height:62px;
+			}
+			h2{
+				line-height: 52px;
+			}
+			h3{
+				line-height: 42px;
+			}
+			h4{
+				line-height: 32px;
+			}
 			img{
 				max-width: 100%;
 			}
