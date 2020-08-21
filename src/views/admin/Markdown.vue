@@ -11,19 +11,20 @@
       </el-form-item>
       <el-form-item label="请输入内容" style="position: relative;">
         <el-button @click="articleBtn" type="primary" size="mini" style="position: absolute; right: 0; top: -46px;"><i class="el-icon-upload2"></i> 发布文章</el-button>
-        <mavonEditor v-model="formLabelAlign.markdown"  @change="changeHTML" style="min-height: 600px"></mavonEditor>
+        <mavonEditor v-model="formLabelAlign.markdown" ref=md @change="changeHTML" @imgAdd="imgAdd" style="min-height: 600px"></mavonEditor>
       </el-form-item>      
       </el-form>
   </div>
 </template>
 
 <script>
-  import wangEditor from '@/components/common/wangEditor';
   import { mavonEditor } from 'mavon-editor'
   import 'mavon-editor/dist/css/index.css'
+  import * as qiniu from 'qiniu-js';
+  import qiniuServe from '@/server/qiniu'
   import article from '@/server/article'
   export default {
-    components: { wangEditor, mavonEditor },
+    components: { mavonEditor },
     data() {
       return {
         labelPosition: 'top',
@@ -38,11 +39,13 @@
         ],
         formLabelAlign: {
           type: 1,
-        }
+        },
+        qiniuToken: null
       };
     },
     mounted () {
       this.init();
+      this.getToken();
     },    
     methods: {
       init () {
@@ -52,6 +55,28 @@
       },
       changeHTML (value, render) {
         this.formLabelAlign.text = render;
+      },
+      imgAdd (pos, $file) {
+        console.log(pos, $file);
+        const $this = this;
+        let putExtra = {
+          fname: "",
+          params: {},
+          mimeType: ["image/png","image/jpeg","image/jpg","image/gif"]
+        };
+        let config = {
+          useCdnDomain: true,
+          region: null
+        };                    
+        var observable = qiniu.upload($file, $file.name, $this.qiniuToken, putExtra, config)
+        var subscription = observable.subscribe(next=>{
+          // 获取详情 
+        }, error=>{
+          // 错误处理
+        }, complete=>{
+          const url = 'https://pito.nvmjs.com/'+complete.key;
+          $this.$refs.md.$imglst2Url([[pos, url]])    //  上传成功之后，将图片插入到编辑器中
+        })        
       },
       getDetail (id) {
         article.articleDetail({id: id}).then( res => {
@@ -94,7 +119,14 @@
             this.$router.push({name: 'Index'});
           }
         });
-      }
+      },
+      getToken () {
+        qiniuServe.getToken().then(res=>{
+          if(res.code == 200){
+            this.qiniuToken = res.data.token;
+          }
+        });      
+      }       
     }
   }
 </script>

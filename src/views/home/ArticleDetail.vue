@@ -117,6 +117,9 @@
 			font-size: 14px;
 			line-height: 30px;
 			color: #2f2f2f;
+			img{
+				max-width: 100%;
+			}
 			pre{
 				background: #f0f0f0;
 				line-height: 20px;
