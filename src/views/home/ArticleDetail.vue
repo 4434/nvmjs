@@ -23,7 +23,8 @@
 	</div>
 </template>
 <script>
-  import article from '@/server/article';		
+  import article from '@/server/article';
+  import 'mavon-editor/dist/css/index.css';
   export default {
     data() {
       return {
@@ -117,8 +118,7 @@
 			line-height: 30px;
 			color: #2f2f2f;
 			pre{
-				background: #282c34;
-				color: #abb2bf;
+				background: #f0f0f0;
 				line-height: 20px;
 				border-radius: 4px;
 				box-sizing: border-box;
