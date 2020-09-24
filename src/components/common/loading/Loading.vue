@@ -1,78 +1,138 @@
 <template>
-	<transition name="fade">
-		<div class="loading" v-if="loading">
-			<div class="qiu-box">
-				<div class="qiu"></div><div class="qiu"></div><div class="qiu"></div>
-			</div>
-		</div>
-	</transition>
+  <transition name="fade">
+    <div class="loading" v-if="loading">
+      <div class="Vertical-Alignment">
+        <div class="Middle">
+          <div class="Background"></div>
+          <div class="Foreground">
+            <div class="Water">
+              <div class="Coast"></div>
+              <div class="Wave Deep"></div>
+              <div class="Wave Surf"></div>
+              <div class="Wave Deep"></div>
+              <div class="Wave Surf"></div>
+              <div class="Wave Deep"></div>
+              <div class="Wave Surf"></div>
+              <div class="Wave Deep"></div>
+              <div class="Wave Surf"></div>
+              <div class="Wave Deep"></div>
+              <div class="Wave Surf"></div>
+              <div class="Wave Deep"></div>
+              <div class="Wave Surf"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </transition>
 </template>
 <script>
-  export default {
-    name: "MyMessage",
-    data() {
-      return {
-		  loading: true
-      }	
-    }
-  }
+export default {
+  name: "MyMessage",
+  data() {
+    return {
+      loading: true,
+    };
+  },
+};
 </script>
 <style lang="scss">
-	.loading{
-		width: 100%;
-		height: 100%;
-		position: fixed;
-		z-index: 99999;
-		top: 0;
-		left: 0;
-		background: rgba(0,0,0,0);
-	}
-	.qiu-box{
-		position: absolute;
-		top: 40%;
-		margin: 0 auto;
-		left: 0;
-		right: 0;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		.qiu{
-			width: 10px;
-			height: 10px;
-			margin: 0 10px;
-			font-size: 0;
-			line-height: 0;
-			border-radius: 5px;
-			background: #0097A7;
-			&:nth-child(1){
-				animation: zoom .9s infinite;			
-			}
-			&:nth-child(2){
-				animation: zoom .9s .3s infinite;			
-			}
-			&:nth-child(3){
-				animation: zoom .9s .6s infinite;			
-			}
-		}
-	}
+.Vertical-Alignment { width: 100%; height: 100%; display: table }
+.Vertical-Alignment>.Middle { vertical-align: middle; display: table-cell; }
+.Horizon-Alignment { width: 100%; height: 100%; }
+.Horizon-Alignment>.Center { text-align: center; }
+.loading {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0);
+  .Background {
+    background: #cccccc;
+    font-weight: bold;
+    margin: 0 auto;
+    width: 410px;
+    height: 65px;
+  }
+  .Background {
+    -webkit-mask: url("../../../assets/img/NvmJS-com.svg");
+    -webkit-mask-repeat: no-repeat;
+  }
 
-	@keyframes zoom{
-		0%{
-			transform: scale(1,1);		
-		}
-		50%{
-			transform: scale(1.5,1.5);
-		}
-		100%{
-			transform: scale(1,1);		
-		}			
+  .Foreground {
+    font-weight: bold;
+    margin: 0 auto;
+    width: 410px;
+    height: 65px;
+    margin: -65px auto 0;
+  }
+  .Foreground {
+    -webkit-mask: url("../../../assets/img/NvmJS-com.svg");
+    -webkit-mask-repeat: no-repeat;
+  }
+  .Foreground .Water {
+    width: 410px;
+    height: 65px;
+    transform: translateY(50px);
+    white-space: nowrap;
+    transition: all 0.3s linear;
+	animation: position 5s infinite;
+  }
+  .Foreground .Water .Coast {
+    background: #0097a7;
+    width: 390px;
+    height: 65px;
+    position: absolute;
+    z-index: 1;
+  }
+  .Foreground .Water .Wave {
+    width: 70px;
+    height: 70px;
+    border-radius: 40%;
+    margin: -2px 0 0 -25px;
+  }
+  .Foreground .Water .Wave {
+    display: inline-block;
+    background: #0097a7;
+  }
+  .Foreground .Water .Wave.Deep {
+    animation: Wave-Rotate2 3s linear 0s infinite;
+  }
+  .Foreground .Water .Wave.Surf {
+    animation: Wave-Rotate1 3s linear 0s infinite;
+    opacity: 0.5;
+    margin: -3px 0 0 -40px;
+  }
+}
+@keyframes position {
+	0%{
+		transform: translateY(50px);
 	}
+	50%{
+		transform: translateY(50px);
+	}
+	100%{
+		transform: translateY(0px);
+	}
+}
 
-	.fade-enter-active, .fade-leave-active {
-	  transition: opacity .5s;
-	}
-	.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-	  opacity: 0;
-	}  	
+@keyframes Wave-Rotate1 {
+  0% {
+    transform: rotate(50deg);
+  }
+  100% {
+    transform: rotate(410deg);
+  }
+}
+@keyframes Wave-Rotate2 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 </style>
 

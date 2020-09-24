@@ -1,7 +1,6 @@
 <template>
     <div id="index">
         <div class="box-inner">
-            <div class="title">列表</div>
             <div class="inner">
                 <articleList :articleList = articleData ></articleList>
             </div>

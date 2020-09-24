@@ -110,6 +110,7 @@ export default {
         box-sizing: border-box;
         background: #fff;
         border-bottom: 1px solid #ddd;
+        box-shadow: 10px 0 10px rgba(0,0,0,0.2);
         .header-inner{
             width: 1200px;
             height: 72px;
