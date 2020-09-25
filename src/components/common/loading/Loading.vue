@@ -37,10 +37,22 @@ export default {
 };
 </script>
 <style lang="scss">
-.Vertical-Alignment { width: 100%; height: 100%; display: table }
-.Vertical-Alignment>.Middle { vertical-align: middle; display: table-cell; }
-.Horizon-Alignment { width: 100%; height: 100%; }
-.Horizon-Alignment>.Center { text-align: center; }
+.Vertical-Alignment {
+  width: 100%;
+  height: 100%;
+  display: table;
+}
+.Vertical-Alignment > .Middle {
+  vertical-align: middle;
+  display: table-cell;
+}
+.Horizon-Alignment {
+  width: 100%;
+  height: 100%;
+}
+.Horizon-Alignment > .Center {
+  text-align: center;
+}
 .loading {
   width: 100%;
   height: 100%;
@@ -48,7 +60,7 @@ export default {
   z-index: 99999;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0);
+  background: #fff;
   .Background {
     background: #cccccc;
     font-weight: bold;
@@ -78,7 +90,7 @@ export default {
     transform: translateY(50px);
     white-space: nowrap;
     transition: all 0.3s linear;
-	animation: position 5s infinite;
+    animation: position 5s infinite;
   }
   .Foreground .Water .Coast {
     background: #0097a7;
@@ -107,15 +119,15 @@ export default {
   }
 }
 @keyframes position {
-	0%{
-		transform: translateY(50px);
-	}
-	50%{
-		transform: translateY(50px);
-	}
-	100%{
-		transform: translateY(0px);
-	}
+  0% {
+    transform: translateY(50px);
+  }
+  50% {
+    transform: translateY(50px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 @keyframes Wave-Rotate1 {
@@ -133,6 +145,19 @@ export default {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+.fade-enter-to,
+.fade-leave {
+  opacity: 1;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: all .5s;
 }
 </style>
 
