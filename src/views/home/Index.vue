@@ -70,12 +70,10 @@
             width: 100%;
             font-size: 12px;       
             margin-top: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 10px, 0.1);     
             .title{                
                 height: 28px;
                 line-height: 28px;
                 padding: 0 10px;
-                background: #F2F9FC;
                 color: teal;
             }
             .inner{
@@ -86,7 +84,6 @@
             }
         }
         .page-box{
-            background: #fff;
             padding: 10px;
             box-sizing: border-box;
             margin-bottom: 20px;

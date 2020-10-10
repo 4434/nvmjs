@@ -47,7 +47,6 @@
 .article-list{
     box-sizing: border-box;
     padding: 10px 0;
-    background: #fff;
     margin: 10px;
     font-size: 12px;
     cursor: pointer;

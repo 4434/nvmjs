@@ -2,7 +2,9 @@
     <div id="top-header">
         <div class="header-inner">
             <div class="left">
-                <div class="logo" @click="goToIndex" >创作</div>
+                <div class="logo" @click="goToIndex" >
+                    <Logo></Logo>
+                </div>
                 <input v-model="form.search" type="" @keyup="keyBtn" name="" placeholder="关键字">
                 <span @click="searchBtn" class="search">搜索</span>
                 <span @click="resetBtn" class="search">重置</span>
@@ -46,8 +48,9 @@
 </template>
 <script>
 import bus from '@/utils/bus.js'
+import Logo from '@/components/common/Logo.vue';
 export default {
-  components: { },
+  components: { Logo },
   name: "top-header",
   data () {
       return {
@@ -126,7 +129,7 @@ export default {
                 .logo{
                     font-size: 24px;
                     font-weight: 700;
-                    color: #0097A7;
+                    color: #4AA0DD;
                     cursor: pointer;
                 }
                 input{
@@ -137,14 +140,14 @@ export default {
                     outline: none;
                     transition: all .5s;
                     &:focus{
-                        border-bottom: 1px solid #0097A7;
+                        border-bottom: 1px solid #4AA0DD;
                     }
                 }
                 span{
                     margin-left: 20px;
                     cursor: pointer;
                     &.search{
-                        color: #0097A7;
+                        color: #4AA0DD;
                     }
                     &.reset{
                         color: red;
