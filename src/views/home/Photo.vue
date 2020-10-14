@@ -7,8 +7,8 @@
                     <div class="desc" v-if="item.flag"  v-html="item.text"></div> 
                 </div>
                 <div class="info">
-                    <span>{{item.username}}</span>
-                    <span>{{item.create_time | dateTime}}</span>
+                    <div>{{item.username}}</div>
+                    <div>{{item.create_time | dateTime}}</div>
                 </div>
                 <div class="num">{{item.length}}字</div>   
             </div>
@@ -143,6 +143,15 @@
                 justify-content: space-between;
                 color: #666;
                 font-size: 12px;
+                div{
+                    width: 50%;
+                    overflow: hidden;
+                    text-overflow:ellipsis;
+                    white-space: nowrap;
+                    &:last-child{
+                        text-align: right;
+                    }                    
+                }
             }
             .num{
                 position: absolute;
