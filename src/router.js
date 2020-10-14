@@ -13,7 +13,7 @@ export default new Router({
       children: [{
         path: '/',
         name: 'Index',
-        component: (resolve) => {require(['@/views/home/Index'], resolve)}
+        component: (resolve) => {require(['@/views/home/Photo'], resolve)}
       },{
         path: '/ArticleDetail',
         name: 'ArticleDetail',

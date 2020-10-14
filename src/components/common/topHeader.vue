@@ -8,6 +8,7 @@
                 <input v-model="form.search" type="" @keyup="keyBtn" name="" placeholder="关键字">
                 <span @click="searchBtn" class="search">搜索</span>
                 <span @click="resetBtn" class="search">重置</span>
+                <span @click="nextBtn" class="search">换一批</span>
                 <span @click="$router.push({name: 'Tank'})">坦克大战</span>
                 <span @click="$router.push({name: 'keyGame'})">字母游戏</span>
                 <span @click="$router.push({name: 'Calendar'})">日历测试</span>
@@ -90,6 +91,9 @@ export default {
         this.form.search = '';
         this.searchBtn();
     },
+    nextBtn () {
+        bus.$emit('search', {next: true});     
+    },
     info () {
         this.$router.push({name: 'Info'});
     },
@@ -115,7 +119,8 @@ export default {
         border-bottom: 1px solid #ddd;
         box-shadow: 10px 0 10px rgba(0,0,0,0.2);
         .header-inner{
-            width: 1200px;
+            box-sizing: border-box;
+            padding: 0 20px;
             height: 72px;
             margin: 0 auto;
             display: flex;
@@ -136,7 +141,6 @@ export default {
                     width: 200px;
                     border: 0;
                     border-bottom: 1px solid #ddd;
-                    margin-left: 40px;
                     outline: none;
                     transition: all .5s;
                     &:focus{

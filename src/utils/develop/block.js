@@ -1,19 +1,23 @@
 class block {
-    size = 200;
+    size = 160;
     constructor (w, arr = []) {
         this.w       = w;
         this.arr     = arr;
         this.grid    = [];   // 网格
-        this.row    = Math.floor(this.w / this.size);
+        this.row    = Math.floor(this.w / this.size) || 1;
         this.actual  = this.w / this.row;     // 真实尺寸
-        this.gridInit(this.row, 10000);     
+        this.gridInit(this.row, 1000);
     }
     init () {
         for(let i=0; i<this.arr.length; i++){
             for(let j=0; j<this.grid.length; j++){
                 let item = this.position(this.arr[i], this.grid[j].x, this.grid[j].y);
                 if(this.compare(item, this.grid)){
-                    this.arr[i].style = {width: `${this.actual * this.arr[i].w}px`, height: `${this.actual * this.arr[i].h}px`, top: `${this.actual * this.grid[j].y}px`, left: `${this.actual * this.grid[j].x}px`};
+                    this.arr[i].row = this.row;
+                    this.arr[i].style = {transition: `all .4s`, width: `${this.actual * this.arr[i].w}px`, height: `${this.actual * this.arr[i].h}px`, top: `${this.actual * this.grid[j].y}px`, left: `${this.actual * this.grid[j].x}px`};
+                    if(this.arr[i].flag){
+                        this.arr[i].style.overflowY = 'auto';
+                    }
                     break;
                 }
             }
