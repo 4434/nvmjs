@@ -4,7 +4,6 @@
             <div class="box" @click="enlargeBtn(item, index)">
                 <div class="inner" :style="{overflowY: item.flag ? 'auto' : 'hidden'}">
                     <p class="title">{{item.title}}</p>
-                    <div class="desc" v-if="!item.flag" v-html="item.describe"></div>
                     <div class="desc" v-if="item.flag"  v-html="item.text"></div> 
                 </div>
                 <div class="info">
@@ -143,6 +142,7 @@
                 display: flex;
                 justify-content: space-between;
                 color: #666;
+                font-size: 12px;
             }
             .num{
                 position: absolute;
@@ -153,7 +153,7 @@
             .inner{
                 overflow: hidden;
                 width: 100%;
-                height: calc(100% - 10px);
+                height: 100%;
                 font-size: 14px;
                 line-height: 26px;
                 color: #2f2f2f;            
