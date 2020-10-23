@@ -1,7 +1,7 @@
 <template>
     <div id="home" ref="home">
-        <div class="item" v-show="item.style" v-for="(item, index) in articleData" :key="index" :style="item.style">
-            <div class="box" @click="enlargeBtn(item, index)">
+        <div class="item" @mousedown="mousedownBtn" @mouseup="mouseupBtn($event, item, index)" v-show="item.style" v-for="(item, index) in articleData" :key="index" :style="item.style">
+            <div class="box" >
                 <div class="inner" :style="{overflowY: item.flag ? 'auto' : 'hidden'}">
                     <p class="title">{{item.title}}</p>
                     <div class="desc" v-if="item.flag"  v-html="item.text"></div> 
@@ -35,6 +35,12 @@
         homeW: '',
         from: {
             search: ''
+        },
+        positian: {
+            startX: 0,
+            startY: 0,
+            endX: 0,
+            endY: 0
         }
       }
     },
@@ -81,6 +87,17 @@
             });
             this.articleData = new block(this.homeW, this.articleData).init();
         },
+        mousedownBtn (e) {
+            this.positian.startX = e.offsetX;
+            this.positian.startY = e.offsetY;
+        },
+        mouseupBtn (e, item, index) {
+            this.positian.endX = e.offsetX;
+            this.positian.endY = e.offsetY;
+            if(Math.abs(this.positian.startX - this.positian.endX) < 10 && Math.abs(this.positian.startY == this.positian.endY) < 10){
+                this.enlargeBtn(item, index);
+            }
+        },
         enlargeBtn (item, index) {
             this.articleData.forEach((res, i)=>{
                 if(index != i){
@@ -120,7 +137,6 @@
             color: #333;
             padding: 40px 10px;
             transition: all .4s;
-            display: box;
             box-orient: horizontal;
             box-pack: center;
             box-align: center;
