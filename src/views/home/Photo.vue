@@ -92,11 +92,13 @@
             this.positian.startY = e.offsetY;
         },
         mouseupBtn (e, item, index) {
-            this.positian.endX = e.offsetX;
-            this.positian.endY = e.offsetY;
-            if(Math.abs(this.positian.startX - this.positian.endX) < 10 && Math.abs(this.positian.startY == this.positian.endY) < 10){
-                this.enlargeBtn(item, index);
-            }
+            setTimeout(()=>{
+                this.positian.endX = e.offsetX;
+                this.positian.endY = e.offsetY;
+                if(Math.abs(this.positian.startX - this.positian.endX) < 10 && Math.abs(this.positian.startY == this.positian.endY) < 10){
+                    this.enlargeBtn(item, index);
+                }
+            }, 0)
         },
         enlargeBtn (item, index) {
             this.articleData.forEach((res, i)=>{
