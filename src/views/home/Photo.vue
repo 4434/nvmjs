@@ -185,11 +185,12 @@
                 line-height: 26px;
                 color: #2f2f2f;            
                 .title{
-                    color: #24211C;
+                    color: #4AA0DD;
                     font-size: 20px;
                     font-weight: 700;
                 }
                 .desc{
+                    margin-top: 20px;
                     h1,h2,h3,h4,h5,h6{
                         line-height: 3em;
                     }
