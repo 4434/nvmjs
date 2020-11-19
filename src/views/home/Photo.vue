@@ -186,7 +186,8 @@
                 color: #2f2f2f;            
                 .title{
                     color: #4AA0DD;
-                    font-size: 20px;
+                    font-size: 14px;
+                    font-weight: 700;
                 }
                 .desc{
                     margin-top: 20px;
