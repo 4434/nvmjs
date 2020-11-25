@@ -81,7 +81,6 @@
       getDetail (id) {
         article.articleDetail({id: id}).then( res => {
           this.formLabelAlign = res.data;
-          console.log(this.formLabelAlign);
         });
       },
       articleBtn () {
@@ -130,7 +129,7 @@
     }
   }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 	.article-write{
 		padding: 10px;
 		box-sizing: border-box;

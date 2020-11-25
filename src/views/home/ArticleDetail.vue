@@ -45,11 +45,11 @@
 </script>
 
 <style lang="scss">
+	@import '@/assets/css/yk-markdown.scss';
 	#articleDetail{
 		height: 100%;
 		margin-top: 10px;
 		.content{
-			width: 1200px;
 			min-height: 100%;
 			box-sizing: border-box;
 			padding: 40px 20px;
@@ -122,13 +122,6 @@
 			}
 			img{
 				max-width: 100%;
-			}
-			pre{
-				background: #f0f0f0;
-				line-height: 20px;
-				border-radius: 4px;
-				box-sizing: border-box;
-				padding: 5px 10px;
 			}
 		}
 	}

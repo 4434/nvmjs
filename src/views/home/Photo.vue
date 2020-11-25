@@ -1,10 +1,11 @@
 <template>
     <div id="home" ref="home">
-        <div class="item" @mousedown="mousedownBtn" @mouseup="mouseupBtn($event, item, index)" v-show="item.style" v-for="(item, index) in articleData" :key="index" :style="item.style">
-            <div class="box" >
-                <div class="inner" :style="{overflowY: item.flag ? 'auto' : 'hidden'}">
+        <div class="item"  v-show="item.style" v-for="(item, index) in articleData" :key="index" :style="item.style">
+            <div class="box" @click="goToDetail(item, index)">
+                <div class="mask" v-if="!item.flag"></div>
+                <div class="inner" :style="{overflowY: item.flag ? 'auto' : 'hidden'}" >
                     <p class="title">{{item.title}}</p>
-                    <div class="desc" v-if="item.flag"  v-html="item.text"></div> 
+                    <div class="desc markdown-body" v-if="item.flag"  v-html="item.text"></div> 
                 </div>
                 <div class="info">
                     <div>{{item.username}}</div>
@@ -21,7 +22,6 @@
   import block from '@/utils/develop/block.js'
   import bus from '@/utils/bus.js'
   import article from '@/server/article.js'
-  import 'mavon-editor/dist/css/index.css';
   export default {
     components: { articleList, pageList },
     data() {
@@ -87,6 +87,9 @@
             });
             this.articleData = new block(this.homeW, this.articleData).init();
         },
+        goToDetail (item) {
+            this.$router.push({ name: "ArticleDetail", query: {id: item.id }})
+        },      
         mousedownBtn (e) {
             this.positian.startX = e.offsetX;
             this.positian.startY = e.offsetY;
@@ -143,11 +146,33 @@
             box-pack: center;
             box-align: center;
             position: relative;
-            z-index: 1;
+            z-index: 2;
+            &.active{
+                cursor: pointer;
+            } 
+            .mask{
+                display: none;
+            }          
             &:hover{
                 .mask{
-                    background: rgba(0, 0, 0, .5);
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    background: rgba(0, 0, 0, .1);
                     z-index: 2;
+                    cursor: pointer;
+                    transition: all .5s;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #666;
+                    font-size: 16px;
+                    span{
+                        margin-left: 6px;
+                    }
                 }
             }
             .info{
@@ -188,6 +213,11 @@
                     color: #4AA0DD;
                     font-size: 14px;
                     font-weight: 700;
+                    span{
+                        color: #999;
+                        font-size: 12px;
+                        
+                    }
                 }
                 .desc{
                     margin-top: 20px;
@@ -196,14 +226,7 @@
                     }
                     img{
                         max-width: 100%;
-                    }
-                    pre{
-                        background: #f0f0f0;
-                        line-height: 20px;
-                        border-radius: 4px;
-                        box-sizing: border-box;
-                        padding: 5px 10px;
-                    }                        
+                    }                      
                 }
                 .user{
                     color: #9F7D50;

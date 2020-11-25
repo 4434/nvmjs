@@ -13,6 +13,11 @@ Vue.use(tool);
 import VueCropper from 'vue-cropper'
 Vue.use(VueCropper)
 
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+// use
+Vue.use(mavonEditor)
+
 import filters from '@/utils/yk-filter.js'
 Object.keys(filters).forEach(key => {  
   Vue.filter(key, filters[key])  
