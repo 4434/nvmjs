@@ -9,7 +9,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: (resolve) => {require(['@/components/HelloWorld'], resolve)},
+      component: (resolve) => {require(['@/views/HelloWorld'], resolve)},
       children: [{
         path: '/',
         name: 'Index',

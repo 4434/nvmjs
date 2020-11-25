@@ -2,10 +2,10 @@
     <div id="home" ref="home">
         <div class="item"  v-show="item.style" v-for="(item, index) in articleData" :key="index" :style="item.style">
             <div class="box" @click="goToDetail(item, index)">
-                <div class="mask" v-if="!item.flag"></div>
-                <div class="inner" :style="{overflowY: item.flag ? 'auto' : 'hidden'}" >
+                <div class="mask"></div>
+                <div class="inner">
                     <p class="title">{{item.title}}</p>
-                    <div class="desc markdown-body" v-if="item.flag"  v-html="item.text"></div> 
+                    <div class="desc"></div> 
                 </div>
                 <div class="info">
                     <div>{{item.username}}</div>
@@ -149,13 +149,9 @@
             z-index: 2;
             &.active{
                 cursor: pointer;
-            } 
-            .mask{
-                display: none;
-            }          
+            }      
             &:hover{
                 .mask{
-                    display: block;
                     width: 100%;
                     height: 100%;
                     position: absolute;
@@ -164,7 +160,7 @@
                     background: rgba(0, 0, 0, .1);
                     z-index: 2;
                     cursor: pointer;
-                    transition: all .5s;
+                    transition: all 1s;
                     display: flex;
                     align-items: center;
                     justify-content: center;
