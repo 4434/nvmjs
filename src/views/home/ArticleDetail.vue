@@ -48,7 +48,7 @@
 	@import '@/assets/css/yk-markdown.scss';
 	#articleDetail{
 		height: 100%;
-		margin-top: 10px;
+		margin-top: 2px;
 		.content{
 			min-height: 100%;
 			box-sizing: border-box;
