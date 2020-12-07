@@ -28,4 +28,23 @@ pre{
     .hljs-built_in, .hljs-builtin-name {
         color: #139fce;
     }
-}  
+}
+
+table{
+    width: 100%;
+    --border-color: #abcdef;
+    border-collapse:collapse;
+    th{
+        border: 1px solid var(--border-color);
+        padding: 5px;
+    }
+    td{
+        padding: 5px;
+        border: 1px solid var(--border-color);
+    }
+    tr{
+        &:nth-child(2n){
+            background: #dfebf7;
+        }        
+    }
+}

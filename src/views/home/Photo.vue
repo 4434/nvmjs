@@ -88,8 +88,12 @@
             this.articleData = new block(this.homeW, this.articleData).init();
         },
         goToDetail (item) {
-            this.$router.push({ name: "ArticleDetail", query: {id: item.id }})
-        },      
+            const routeUrl = this.$router.resolve({
+                name: "ArticleDetail",
+                query: {id: item.id}
+            });
+            window.open(routeUrl.href, '_blank');            
+        },              
         mousedownBtn (e) {
             this.positian.startX = e.offsetX;
             this.positian.startY = e.offsetY;
