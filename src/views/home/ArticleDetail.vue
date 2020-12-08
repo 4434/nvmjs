@@ -18,7 +18,7 @@
 					</p>
 				</div>				
 			</div>
-			<div class="article-conter" v-html="detail.text"></div>	
+			<div class="article-conter yk-markdown" v-html="detail.text"></div>	
 		</div>
 	</div>
 </template>
