@@ -6,7 +6,7 @@
         </div>
         <div class="set-box">
             <span @click="resetBtn">重置</span>
-            <span @click="nextBtn">换一批</span>
+            <span @click="nextBtn">换一批({{page.pageIndex}}/{{Math.ceil(page.pageAll / page.pageSize)}})</span>
         </div>
     </div>
 </template>
@@ -26,6 +26,11 @@ export default {
           }
       }
   },
+  computed: {
+    page(){
+        return this.$store.state.page
+    }
+  },  
   mounted () {
     this.token = localStorage.token;
     this.avater = localStorage.avater;

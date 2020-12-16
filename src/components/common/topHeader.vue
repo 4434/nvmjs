@@ -8,7 +8,7 @@
                 <input v-model="form.search" type="" @keyup="keyBtn" name="" placeholder="关键字">
                 <span @click="searchBtn" class="search">搜索</span>
                 <span @click="resetBtn" class="search">重置</span>
-                <span @click="nextBtn" class="search">换一批</span>
+                <span @click="nextBtn" class="search">换一批({{page.pageIndex}}/{{Math.ceil(page.pageAll / page.pageSize)}})</span>
                 <span @click="$router.push({name: 'Tank'})">坦克大战</span>
                 <span @click="$router.push({name: 'keyGame'})">字母游戏</span>
                 <span @click="$router.push({name: 'Calendar'})">日历测试</span>
@@ -62,6 +62,11 @@ export default {
             search: '',
           }
       }
+  },
+  computed: {
+    page(){
+        return this.$store.state.page
+    }
   },
   mounted () {
     this.token = localStorage.token;
