@@ -39,6 +39,10 @@ export default {
 						title: '折叠表格', router: 'TreeTable',
 					},{
 						title: '日历开发', router: 'Calendar',
+					},{
+						title: 'SVG', router: 'SVG',
+					},{
+						title: 'Fabric', router: 'Fabric',
 					}]
 				},{
 				title: '游戏开始',

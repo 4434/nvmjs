@@ -47,7 +47,6 @@
     mounted () {
         const homeBox = document.querySelector('#home');
         this.homeW    = homeBox.offsetWidth;        
-        console.log(this.$store);
         this.getList();
         let $this = this;
         bus.$off('search');

@@ -21,8 +21,8 @@
       <div class="right">
           <div class="tool">
               <ul>
-                  <li @click="active = 1"><span>画图</span></li>
                   <li @click="active = 2"><span>文件</span></li>
+                  <li @click="active = 1"><span>画图</span></li>
                   <li @click="active = 3"><span>类型</span></li>
                   <li @click="active = 6"><span>粗细</span></li>
                   <li @click="active = 7"><span>橡皮</span></li>

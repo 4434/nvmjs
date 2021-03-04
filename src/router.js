@@ -51,6 +51,14 @@ export default new Router({
         name: "Calendar",
         component: (resolve) => {require(['@/views/develop/Calendar.vue'], resolve)}
       },{
+        path: "/Fabric",
+        name: "Fabric",
+        component: (resolve) => {require(['@/views/develop/Fabric.vue'], resolve)}
+      },{
+        path: "/SVG",
+        name: "SVG",
+        component: (resolve) => {require(['@/views/develop/SVG.vue'], resolve)}
+      },{
         path: "/Tank",
         name: "Tank",
         component: (resolve) => {require(['@/views/develop/Tank.vue'], resolve)}

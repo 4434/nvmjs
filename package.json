@@ -11,6 +11,7 @@
     "axios": "^0.19.2",
     "echarts": "^4.7.0",
     "element-ui": "^2.4.5",
+    "fabric": "^4.3.1",
     "mavon-editor": "^2.9.0",
     "qiniu-js": "^2.5.5",
     "three": "^0.118.3",
