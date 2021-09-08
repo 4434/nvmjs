@@ -17,5 +17,8 @@ export default{
 	},
 	articleUpdate (params = {}) {
 		return axios.post('/api/articleUpdate', params);
+	},
+	articleStatus (params = {}) {
+		return axios.post('/api/articleStatus', params);
 	}
 }
